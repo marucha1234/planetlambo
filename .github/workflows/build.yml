@@ -1,0 +1,31 @@
+name: Build Optimized HTML
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['optimize.py']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run optimizer
+        run: python optimize.py
+
+      - name: Commit optimized files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html en/index.html
+          git diff --cached --quiet || git commit -m "chore: update optimized HTML files"
+          git push
