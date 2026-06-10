@@ -579,20 +579,78 @@
       transition: border-color 0.4s var(--ease);
     }
     .campaign-card:hover { border-color: var(--line-strong); }
-    .campaign-video {
+    .campaign-card-bg {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.8s var(--ease);
+    }
+    .campaign-card-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+      opacity: 0.16;
+      mix-blend-mode: overlay;
+    }
+    .campaign-cover {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.55;
-      transition: opacity 0.6s var(--ease), transform 0.8s var(--ease);
+      opacity: 0.85;
+      transition: transform 0.8s var(--ease);
     }
-    .campaign-card:hover .campaign-video { opacity: 0.75; transform: scale(1.025); }
+    .campaign-card:hover .campaign-card-bg,
+    .campaign-card:hover .campaign-cover { transform: scale(1.025); }
+
+    /* Per-campaign abstract backgrounds — text-free, brand-toned */
+    [data-campaign="magistral"] .campaign-card-bg {
+      background:
+        radial-gradient(120% 90% at 85% 8%, rgba(201, 138, 59, 0.34), transparent 55%),
+        radial-gradient(90% 80% at 12% 92%, rgba(122, 63, 18, 0.45), transparent 60%),
+        linear-gradient(160deg, #1C1208, #0E0E10);
+    }
+    [data-campaign="lemon"] .campaign-card-bg {
+      background:
+        radial-gradient(120% 90% at 80% 10%, rgba(196, 205, 66, 0.26), transparent 55%),
+        radial-gradient(90% 80% at 15% 90%, rgba(94, 102, 20, 0.4), transparent 60%),
+        linear-gradient(160deg, #17180A, #0E0E10);
+    }
+    [data-campaign="wanama"] .campaign-card-bg {
+      background:
+        radial-gradient(120% 90% at 80% 10%, rgba(196, 93, 58, 0.28), transparent 55%),
+        radial-gradient(90% 80% at 15% 90%, rgba(94, 33, 22, 0.42), transparent 60%),
+        linear-gradient(160deg, #1A0F0B, #0E0E10);
+    }
+    [data-campaign="casanchef"] .campaign-card-bg {
+      background:
+        radial-gradient(120% 90% at 80% 10%, rgba(64, 186, 120, 0.24), transparent 55%),
+        radial-gradient(90% 80% at 15% 90%, rgba(16, 84, 52, 0.42), transparent 60%),
+        linear-gradient(160deg, #0A1810, #0E0E10);
+    }
+    [data-campaign="sedal"] .campaign-card-bg {
+      background:
+        radial-gradient(120% 90% at 80% 10%, rgba(146, 86, 220, 0.28), transparent 55%),
+        radial-gradient(90% 80% at 15% 90%, rgba(60, 26, 110, 0.42), transparent 60%),
+        linear-gradient(160deg, #140D20, #0E0E10);
+    }
+    [data-campaign="mcdonalds3d"] .campaign-card-bg {
+      background:
+        radial-gradient(120% 90% at 80% 10%, rgba(224, 138, 42, 0.3), transparent 55%),
+        radial-gradient(90% 80% at 15% 90%, rgba(140, 40, 18, 0.44), transparent 60%),
+        linear-gradient(160deg, #1C0D08, #0E0E10);
+    }
+    [data-campaign="mcdonaldspixel"] .campaign-card-bg {
+      background:
+        radial-gradient(120% 90% at 80% 10%, rgba(42, 184, 168, 0.26), transparent 55%),
+        radial-gradient(90% 80% at 15% 90%, rgba(14, 84, 80, 0.42), transparent 60%),
+        linear-gradient(160deg, #0A1818, #0E0E10);
+    }
     .campaign-card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(9, 9, 10, 0.92) 0%, rgba(9, 9, 10, 0.25) 50%, rgba(9, 9, 10, 0.1) 100%);
+      background: linear-gradient(to top, rgba(9, 9, 10, 0.9) 0%, rgba(9, 9, 10, 0.3) 45%, transparent 75%);
       pointer-events: none;
     }
     .campaign-arrow {
@@ -877,10 +935,10 @@
     }
     .faq-item[open] summary::after { transform: rotate(45deg); color: var(--accent); }
     .faq-item p {
-      color: var(--ink-2);
-      font-size: 14px;
-      line-height: 1.75;
-      padding-bottom: 24px;
+      color: #C9C9C5;
+      font-size: 15px;
+      line-height: 1.8;
+      padding: 4px 0 28px;
       max-width: 640px;
     }
 
@@ -1158,7 +1216,8 @@
 
         <!-- Magistral / DreamCo -->
         <article class="campaign-card large reveal" data-campaign="magistral">
-          <video class="campaign-video" muted loop playsinline preload="none"><source data-src="media/campañas/magistral/Magistral.mov" type="video/mp4"></video>
+          <div class="campaign-card-bg"></div>
+          <img class="campaign-cover" src="media/campañas/magistral/cover.jpg" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">
           <div class="campaign-card-overlay"></div>
           <div class="campaign-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
           <div class="campaign-card-content">
@@ -1172,7 +1231,8 @@
 
         <!-- Lemon -->
         <article class="campaign-card reveal" data-campaign="lemon">
-          <video class="campaign-video" muted loop playsinline preload="none"><source data-src="media/campañas/lemon/Lemon.mp4" type="video/mp4"></video>
+          <div class="campaign-card-bg"></div>
+          <img class="campaign-cover" src="media/campañas/lemon/cover.jpg" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">
           <div class="campaign-card-overlay"></div>
           <div class="campaign-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
           <div class="campaign-card-content">
@@ -1186,7 +1246,8 @@
 
         <!-- Wanama -->
         <article class="campaign-card reveal" data-campaign="wanama">
-          <video class="campaign-video" muted loop playsinline preload="none"><source data-src="media/campañas/wanama/Video wanama.mp4" type="video/mp4"></video>
+          <div class="campaign-card-bg"></div>
+          <img class="campaign-cover" src="media/campañas/wanama/wanama-01.jpg" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">
           <div class="campaign-card-overlay"></div>
           <div class="campaign-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
           <div class="campaign-card-content">
@@ -1200,7 +1261,8 @@
 
         <!-- CasanChef / Danone -->
         <article class="campaign-card reveal" data-campaign="casanchef">
-          <video class="campaign-video" muted loop playsinline preload="none"><source data-src="media/campañas/casanchef/Casanchef.mp4" type="video/mp4"></video>
+          <div class="campaign-card-bg"></div>
+          <img class="campaign-cover" src="media/campañas/casanchef/cover.jpg" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">
           <div class="campaign-card-overlay"></div>
           <div class="campaign-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
           <div class="campaign-card-content">
@@ -1214,7 +1276,8 @@
 
         <!-- Sedal / Unilever -->
         <article class="campaign-card large reveal" data-campaign="sedal">
-          <video class="campaign-video" muted loop playsinline preload="none"><source data-src="media/campañas/sedal/Sedal.mp4" type="video/mp4"></video>
+          <div class="campaign-card-bg"></div>
+          <img class="campaign-cover" src="media/campañas/sedal/cover.jpg" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">
           <div class="campaign-card-overlay"></div>
           <div class="campaign-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
           <div class="campaign-card-content">
@@ -1228,7 +1291,8 @@
 
         <!-- McDonald's 3D -->
         <article class="campaign-card reveal" data-campaign="mcdonalds3d">
-          <video class="campaign-video" muted loop playsinline preload="none"><source data-src="media/campañas/mcdonalds-3d/McDonalds3D.mp4" type="video/mp4"></video>
+          <div class="campaign-card-bg"></div>
+          <img class="campaign-cover" src="media/campañas/mcdonalds-3d/cover.jpg" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">
           <div class="campaign-card-overlay"></div>
           <div class="campaign-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
           <div class="campaign-card-content">
@@ -1242,7 +1306,8 @@
 
         <!-- McDonald's Pixel -->
         <article class="campaign-card reveal" data-campaign="mcdonaldspixel">
-          <video class="campaign-video" muted loop playsinline preload="none"><source data-src="media/campañas/mcdonalds-roblox/Roblox Planetlambo.mp4" type="video/mp4"></video>
+          <div class="campaign-card-bg"></div>
+          <img class="campaign-cover" src="media/campañas/mcdonalds-roblox/cover.jpg" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">
           <div class="campaign-card-overlay"></div>
           <div class="campaign-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
           <div class="campaign-card-content">
@@ -1322,7 +1387,7 @@
       <div class="label reveal"><span class="idx">05</span>Preguntas frecuentes</div>
       <h2 class="section-title reveal" style="margin-bottom:48px;">Todo lo que necesitás saber sobre AI + marcas</h2>
       <div class="faq-list reveal">
-        <details class="faq-item">
+        <details class="faq-item" open>
           <summary>¿Qué es Planetlambo y qué hace?</summary>
           <p>Somos un AI Market Lab con base en Buenos Aires y São Paulo. Diseñamos, producimos y escalamos campañas publicitarias 100% generadas con inteligencia artificial, experiencias inmersivas y agentes AI autónomos para marcas líderes como McDonald's, Unilever y Danone.</p>
         </details>
@@ -1474,24 +1539,6 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // ---- Lazy-load + autoplay campaign videos ----
-    const videoObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const video = entry.target;
-        if (entry.isIntersecting) {
-          const source = video.querySelector('source[data-src]');
-          if (source) {
-            source.src = source.dataset.src;
-            source.removeAttribute('data-src');
-            video.load();
-          }
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      });
-    }, { rootMargin: '120px' });
-    document.querySelectorAll('.campaign-video').forEach(v => videoObserver.observe(v));
 
     // ---- Campaign modal ----
     const modal = document.getElementById('campaignModal');
