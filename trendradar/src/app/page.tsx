@@ -54,20 +54,52 @@ function formatTs(ts: string | null): string {
   return new Date(ts).toISOString().replace("T", " ").slice(0, 16) + " UTC";
 }
 
-export default async function StatusPage() {
-  if (!hasSupabaseEnv()) {
-    return (
-      <p className="text-terminal-dim">
-        Supabase sin configurar. Copiá <code>.env.example</code> a{" "}
-        <code>.env.local</code> y completá las credenciales.
-      </p>
-    );
-  }
+// Datos de ejemplo para cuando Supabase no está configurado (deploys de
+// demo). Se muestran con banner DEMO bien visible: nunca se confunden con
+// datos reales.
+const DEMO_LAST_GOOD: RunRow[] = [
+  ["hashtags", "AR", 100], ["sounds", "AR", 100], ["videos", "AR", 20],
+  ["hashtags", "MX", 100], ["sounds", "MX", 100], ["videos", "MX", 20],
+  ["hashtags", "BR", 100], ["sounds", "BR", 100], ["videos", "BR", 20],
+  ["hashtags", "ES", 100], ["sounds", "ES", 100], ["videos", "ES", 20],
+  ["hashtags", "US", 100], ["sounds", "US", 100], ["videos", "US", 20],
+].map(([target, country, items]) => ({
+  target: target as string,
+  country_code: country as string,
+  finished_at: "2026-07-23T06:00:00Z",
+  items_ingested: items as number,
+  status: "success",
+  error_message: null,
+}));
 
-  const { lastGood, recentFailures, error } = await loadStatus();
+const DEMO_FAILURES: RunRow[] = [
+  {
+    target: "sounds",
+    country_code: "BR",
+    finished_at: "2026-07-23T00:00:00Z",
+    items_ingested: 0,
+    status: "failed",
+    error_message:
+      'El contrato de sonidos cambió: sound_list: Required (ejemplo de falla ruidosa — la corrida siguiente ya recuperó)',
+  },
+];
+
+export default async function StatusPage() {
+  const demoMode = !hasSupabaseEnv();
+
+  const { lastGood, recentFailures, error } = demoMode
+    ? { lastGood: DEMO_LAST_GOOD, recentFailures: DEMO_FAILURES, error: undefined }
+    : await loadStatus();
 
   return (
     <div className="space-y-8 max-w-4xl">
+      {demoMode && (
+        <p className="border border-terminal-amber text-terminal-amber text-xs px-3 py-2">
+          ▲ MODO DEMO — Supabase sin configurar: estos son datos de ejemplo,
+          no tendencias reales. Conectá las credenciales para activar la
+          ingesta.
+        </p>
+      )}
       <section>
         <h2 className="text-terminal-amber text-sm mb-2">
           ▌ESTADO DE INGESTA — último dato bueno por target × país
