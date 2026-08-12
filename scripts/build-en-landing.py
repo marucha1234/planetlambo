@@ -258,6 +258,10 @@ def reescribir_head(soup):
         el = soup.select_one(sel)
         if el:
             el[attr] = val
+    # el origen ya trae su propio juego de hreflang; hay que sacarlo antes de
+    # escribir el de esta pagina o quedan duplicados en conflicto
+    for link in soup.select('link[rel="alternate"][hreflang]'):
+        link.decompose()
     canonical = soup.select_one('link[rel="canonical"]')
     for code, href in (("en", URL_EN), ("es-419", URL_ES), ("x-default", URL_ES)):
         tag = soup.new_tag("link", rel="alternate", href=href)
