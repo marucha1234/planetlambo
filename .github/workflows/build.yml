@@ -1,13 +1,22 @@
-name: Build Optimized HTML
+name: Sync site from production
 
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['optimize.py']
+    paths:
+      - 'optimize.py'
+      - '.github/workflows/build.yml'
+  schedule:
+    # Lunes 06:00 UTC: reespeja el sitio por si cambio el contenido
+    - cron: '0 6 * * 1'
+
+concurrency:
+  group: sync-site
+  cancel-in-progress: true
 
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -17,15 +26,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
-      - name: Run optimizer
+      - name: Sync desde www.planetlambo.com
         run: python optimize.py
 
-      - name: Commit optimized files
+      - name: Commit de los archivos generados
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html en/index.html
-          git diff --cached --quiet || git commit -m "chore: update optimized HTML files"
+          git add -A
+          git diff --cached --quiet || git commit -m "chore: sync contenido desde www.planetlambo.com"
           git push
