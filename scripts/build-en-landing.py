@@ -38,8 +38,8 @@ TITLE = "AI Production Company in Latin America — Argentina & Brazil | Planetl
 DESCRIPTION = (
     "AI production company in Latin America: AI-driven advertising production, "
     "postproduction, immersive experiences, multimodal agents and workshops. "
-    "Argentina and Brazil — Buenos Aires · São Paulo. Public cases with "
-    "Unilever, DreamCo and AGEA/Olé."
+    "Argentina and Brazil — Buenos Aires · São Paulo. With press coverage in "
+    "LatinSpots and Adlatina."
 )
 OG_TITLE = "AI Production Company in Latin America — Planetlambo"
 OG_DESCRIPTION = (
@@ -87,7 +87,7 @@ T = {
 "Eficiencia de costos, mismo craft": "Cost efficiency, same craft",
 "Más assets, mismo output": "More assets, same output",
 
-"Casos públicos": "Public cases",
+"Casos públicos": "Press",
 "Producción con IA · 2025": "AI production · 2025",
 "Experiencia beauty-tech con IA generativa y computer vision que redefinió la interacción entre la marca y sus consumidores.":
 "Beauty-tech experience with generative AI and computer vision that redefined how the brand interacts with its consumers.",
@@ -143,8 +143,8 @@ T = {
 "It depends on the project, but timelines run up to 70% faster than a comparable traditional production. What used to take weeks of filming and postproduction can be resolved in days. Every brief gets its own milestone map and an early pilot delivery.",
 "¿Con qué marcas trabaja Planetlambo?": "Which brands does Planetlambo work with?",
 "¿Desde dónde operan y para qué mercados?": "Where do you operate from, and for which markets?",
-"Operamos desde Buenos Aires (Palermo Hollywood) y São Paulo (Vila Madalena), con proyectos para toda Latinoamérica y mercados globales. El modelo bilingüe ES/EN y la doble sede nos permiten producir campañas regionales y hero assets globales sin cambios de equipo.":
-"We operate from Buenos Aires (Palermo Hollywood) and São Paulo (Vila Madalena), with projects across Latin America and global markets. The bilingual ES/EN model and dual base let us produce regional campaigns and global hero assets without changing teams.",
+"Operamos desde Buenos Aires y São Paulo, con proyectos para toda Latinoamérica y mercados globales. El modelo bilingüe ES/EN y la doble sede nos permiten producir campañas regionales y hero assets globales sin cambios de equipo.":
+"We operate from Buenos Aires and São Paulo, with projects across Latin America and global markets. The bilingual ES/EN model and dual base let us produce regional campaigns and global hero assets without changing teams.",
 "¿Cuánto cuesta una producción publicitaria con IA?": "How much does AI advertising production cost?",
 "¿Cómo elegir una productora de IA en Latinoamérica?": "How do you choose an AI production company in Latin America?",
 "cómo evaluar una productora de IA": "how to evaluate an AI production company",
@@ -185,7 +185,7 @@ T = {
 T_HTML = {
 "marcas-faq": (
 "Trabajamos con marcas enterprise y startups en Argentina, Brasil y el resto de Latinoamérica.",
-"We work with enterprise brands and startups across Argentina, Brazil and the rest of Latin America. The cases where our AI production is public include <strong>Sedal (Unilever)</strong> with Look-IA-te, <strong>Magistral (DreamCo)</strong> with the campaign Decisiones, and <strong>Olé (AGEA)</strong> with its 30th anniversary and the 2026 World Cup, produced together with agency CHECHE."
+"We work with enterprise brands and startups across Argentina, Brazil and the rest of Latin America."
 ),
 "costo-faq": (
 "No hay tarifa fija: cada proyecto se cotiza según alcance",
