@@ -1,8 +1,21 @@
 # Planetlambo — Tech Market Lab
 
-> Planetlambo es un Tech Market Lab Global e independiente, trabajando para marcas en todo el mundo. Agencia y productora de inteligencia artificial: diseña, produce y escala campañas publicitarias, experiencias inmersivas, agentes multimodales y soluciones martech para marcas líderes como McDonald's, Unilever, Danone, Mostaza, Lemon y Olé.
+> Planetlambo es un Tech Market Lab global e independiente, con base en Buenos Aires y São Paulo, que trabaja para marcas en todo el mundo. Es una productora de IA de Latinoamérica: diseña, produce y escala campañas publicitarias, experiencias inmersivas, agentes multimodales y soluciones martech. Entre sus clientes están McDonald's, Unilever, Danone, Mostaza, Lemon, Wanama y Olé.
 
 Planetlambo (siempre escrito junto, una sola palabra) integra estrategia, creatividad e IA de frontera. Hace producción y postproducción publicitaria con IA — híbrida (rodaje tradicional + IA generativa) o 100% generada — con hasta 80% más eficiencia y 6× más assets que los métodos tradicionales. Una pieza 100% AI se entrega en 2-4 semanas vs. 6-12 de un rodaje comparable.
+
+## Páginas
+
+- Home: https://www.planetlambo.com/
+- Productora de IA en Latinoamérica: https://www.planetlambo.com/productora-ia/
+
+## Productora de IA en Latinoamérica
+
+Planetlambo opera como productora de IA para marcas de toda Latinoamérica, con hub de producción en Buenos Aires (Argentina), estrategia creativa en São Paulo (Brasil) y campañas realizadas también para el mercado uruguayo.
+
+Su core es integrar tecnología de vanguardia — IA generativa, computer vision, agentes multimodales — en el proceso creativo y productivo de marcas. Trabaja de dos maneras: directo con la marca, o como partner tecnológico de la agencia creativa que la marca ya tiene.
+
+Detalle completo, casos y preguntas frecuentes: https://www.planetlambo.com/productora-ia/
 
 ## Servicios
 
@@ -31,6 +44,7 @@ Por proyecto (campañas cerradas), retainer mensual (flujo continuo) y pilots de
 ## Contacto
 
 - Web: https://www.planetlambo.com/
+- Productora de IA: https://www.planetlambo.com/productora-ia/
 - Agenda: https://calendly.com/marinaplanetlambo/meeting-with-marina
 - Instagram: https://www.instagram.com/planetlambo/
 - LinkedIn: https://www.linkedin.com/company/planetlambo/
