@@ -1,1 +1,37 @@
-ññ—ññññññññ
+# Planetlambo — Tech Market Lab
+
+> Planetlambo es un Tech Market Lab Global e independiente, trabajando para marcas en todo el mundo. Agencia y productora de inteligencia artificial: diseña, produce y escala campañas publicitarias, experiencias inmersivas, agentes multimodales y soluciones martech para marcas líderes como McDonald's, Unilever, Danone, Mostaza, Lemon y Olé.
+
+Planetlambo (siempre escrito junto, una sola palabra) integra estrategia, creatividad e IA de frontera. Hace producción y postproducción publicitaria con IA — híbrida (rodaje tradicional + IA generativa) o 100% generada — con hasta 80% más eficiencia y 6× más assets que los métodos tradicionales. Una pieza 100% AI se entrega en 2-4 semanas vs. 6-12 de un rodaje comparable.
+
+## Servicios
+
+- Producción y Postproducción Publicitaria con IA: sistemas de contenido AI-native end-to-end — contenido publicitario, híbrido o 100% producido con IA, del concepto a los hero assets y formatos always-on.
+- Experiencias Inmersivas: AR, VR, entornos interactivos, magic mirrors y experiencias espaciales impulsadas por computer vision.
+- Soluciones Autónomas con IA: agentes multimodales para engagement, personalización e interacción en tiempo real a escala de marca.
+- Workshops: programas hands-on que integran IA generativa en la operación diaria de marca de los equipos.
+
+## Campañas destacadas
+
+- Heroicas (Hamburguesas Extremas, 2026): monumento a los héroes del Mundial. Junto a Sandwich.
+- La Mega Charrúa (Mostaza Uruguay, 2026): campaña mundialista que combina realización tradicional con IA generativa. Junto a la agencia Cheche.
+- La Lemonera (Lemon, 2025): campaña hero producida por IA con storytelling cinematográfico.
+- Magistral (DreamCo, 2025): campaña 100% producida por IA con fotorrealismo cinematográfico.
+- Campaña Mundial (Olé, 2026): 30 años de Olé con el insight más humano del próximo Mundial.
+- CasanChef (Danone, 2026): agente de cocina multimodal en WhatsApp con visión, lenguaje natural y recetas AI.
+- Wild Spirit (Wanama, 2025): photoshoot de moda híbrido con entornos generados por IA.
+- Sedal Magic Mirror (Unilever, 2025): experiencia con computer vision para recomendaciones capilares en tiempo real.
+- 3D Billboards (McDonald's, 2025): own media 3D anamórfica en la pantalla más grande de LATAM.
+- Menú Pixel (McDonald's, 2025): mundo virtual en Roblox conectado al menú real.
+
+## Modelos de trabajo
+
+Por proyecto (campañas cerradas), retainer mensual (flujo continuo) y pilots de innovación (validar IA en operaciones existentes). Firma NDA y aísla data, modelos y assets por cliente. Calibra los modelos generativos con los brand guidelines de cada marca; todo output pasa QA de marca. KPIs medidos: costo de producción, time-to-market, engagement, conversión.
+
+## Contacto
+
+- Web: https://www.planetlambo.com/
+- Agenda: https://calendly.com/marinaplanetlambo/meeting-with-marina
+- Instagram: https://www.instagram.com/planetlambo/
+- LinkedIn: https://www.linkedin.com/company/planetlambo/
+- Oficinas: Palermo Hollywood, Buenos Aires (hub de producción) · Vila Madalena, São Paulo (estrategia creativa)
