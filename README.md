@@ -1,60 +1,79 @@
-# Planetlambo — sitio estatico
+# Planetlambo — sitio estático
 
-Copia versionada y automatizada del sitio de **Planetlambo**, el Tech Market Lab de
-produccion y postproduccion publicitaria con IA, martech y experiencias inmersivas
-(Buenos Aires · Sao Paulo).
+Sitio oficial de **Planetlambo**, el Tech Market Lab de producción y postproducción
+publicitaria con IA, martech y experiencias inmersivas (Buenos Aires · São Paulo).
 
-**Fuente de verdad: https://www.planetlambo.com**
+**Producción: https://www.planetlambo.com**
+**Hosting: Vercel · Auto-deploy desde `main`**
 
-Este repositorio no se edita a mano. El contenido se genera espejando el sitio en
-produccion, para que la copia estatica y los archivos de SEO/GEO nunca queden
-desactualizados respecto de lo que ve el usuario final.
+## Fuente de verdad
+
+Desde 2026-08-12 **este repositorio es la fuente de verdad del sitio**. Vercel
+observa la rama `main` y publica cada push en planetlambo.com automáticamente
+(≈20 s por deploy). No hay build step: es HTML/CSS/JS estático.
+
+> Antes de esa fecha el flujo era inverso: el sitio vivía fuera y este repo lo
+> espejaba con `optimize.py`. Ese script quedó archivado en
+> [`scripts/legacy-mirror.py`](scripts/legacy-mirror.py) sólo como referencia
+> histórica. Correrlo hoy sobrescribiría los cambios locales — leer el aviso
+> dentro del archivo antes de tocarlo.
 
 ## Estructura
 
-    index.html      Home en espanol, generada desde produccion
-    en/index.html   Home en ingles (hoy es un stub con redirect: no hay EN publicado)
-    llms.txt        Resumen estructurado del negocio para modelos de lenguaje
-    robots.txt      Reglas de crawling, incluidos los crawlers de IA
-    sitemap.xml     Mapa del sitio
-    optimize.py     Script de sincronizacion y optimizacion GEO
+    index.html              Home ES (con toggle EN embebido vía data-en)
+    productora-ia/          Landing AEO/GEO "Productora de IA en Argentina y Brasil"
+    en/index.html           Stub EN (redirect a la home mientras no haya versión propia)
+    css/                    Estilos
+    js/                     Scripts del sitio
+    assets/                 Imágenes, videos, fonts
+    favicon.ico
+    llms.txt                Resumen estructurado del negocio para modelos de lenguaje
+    robots.txt              Reglas de crawling (permite GPTBot, ClaudeBot, PerplexityBot, Google-Extended)
+    sitemap.xml             Mapa del sitio (home + /productora-ia/)
+    scripts/legacy-mirror.py   Script del modelo espejo antiguo (desactivado)
+    .github/workflows/build.yml   Workflow del mirror legacy (desactivado; sólo manual con confirmación)
 
-## Como regenerar el contenido
+## Cómo editar el sitio
 
-Requiere Python 3.11 o superior, sin dependencias externas:
+1. Clonar el repo y crear una rama.
+2. Editar los archivos HTML/CSS/JS directamente.
+3. Abrir PR o pushear a `main`.
+4. Vercel deploya solo. Verificar en https://www.planetlambo.com.
 
-    python optimize.py
+Para preview local basta con abrir `index.html` en el navegador o servir la
+carpeta con cualquier estático (p. ej. `python3 -m http.server 4000`).
 
-El script descarga la home de produccion, reescribe las rutas relativas a
-absolutas (para que el video y las imagenes funcionen aunque los assets pesados
-no esten versionados), refresca la marca de tiempo de ultima modificacion,
-enlaza llms.txt y baja tambien robots.txt y sitemap.xml.
+## SEO / GEO
 
-## Automatizacion
+- `sitemap.xml` incluye `/` y `/productora-ia/`.
+- `robots.txt` permite explícitamente los crawlers de IA (GPTBot, ClaudeBot,
+  PerplexityBot, Google-Extended).
+- `llms.txt` da un resumen estructurado del negocio pensado para LLMs.
+- Cada página tiene su bloque de JSON-LD (Organization, WebSite, FAQPage,
+  Service, BreadcrumbList) — validar con https://validator.schema.org antes
+  de mergear cambios grandes.
+- Regla editorial: sólo se puede afirmar públicamente que una campaña fue
+  hecha con IA cuando ya salió en prensa. Los tres casos públicos hoy son
+  Sedal "Look-IA-te" (Unilever), "Decisiones" (Magistral / DreamCo) y
+  "Olé 30 años — Mundial 2026" (AGEA / Olé con agencia CHECHE). Para
+  cualquier otro cliente hay que respetar el lenguaje que ya usa el sitio.
 
-El workflow **Sync site from production** (.github/workflows/build.yml) corre:
+## Assets pesados
 
-- cada lunes a las 06:00 UTC,
-- en cada push a main que toque optimize.py o el propio workflow,
-- y a demanda desde la pestana Actions (Run workflow).
+Los videos e imágenes de campañas viven en `/assets/` versionadas en el repo.
+Si en el futuro pesan demasiado para un repo de Git, la alternativa limpia es
+moverlas a un CDN (p. ej. Vercel Blob o un bucket) y actualizar las URLs en
+el HTML — no volver al modelo espejo.
 
-Si detecta cambios, commitea los archivos regenerados automaticamente.
+## Versión en inglés
 
-## Assets
+`https://www.planetlambo.com/en/` hoy es un stub con `noindex` y redirect a la
+home en español. La home en español ya trae un toggle ES/EN embebido usando
+atributos `data-en`. Cuando exista una versión EN completa, publicarla en
+`/en/index.html` y actualizar el sitemap.
 
-Los videos e imagenes de campanas no se versionan en este repo: pesan demasiado
-y ya estan servidos desde produccion. Por eso el HTML generado apunta a URLs
-absolutas de www.planetlambo.com. Si en algun momento se quiere un mirror 100%
-autonomo, hay que subir la carpeta de media y desactivar la absolutizacion de
-rutas en optimize.py.
+## Qué NO vive acá
 
-## Version en ingles
-
-Hoy https://www.planetlambo.com/en/ devuelve 404, asi que en/index.html es un
-stub con noindex y redirect a la home en espanol. Cuando se publique la version
-EN en produccion, el script la va a espejar sola, sin cambios de codigo.
-
-## Que NO vive aca
-
-Proyectos que no son el sitio (TrendRadar, apps internas, experimentos) viven en
-repositorios propios. Este repo es unicamente el sitio publico.
+Los demás proyectos de Planetlambo (TrendRadar, ÓRBITA, apps internas,
+experimentos) viven en repositorios propios. Este repo es únicamente el sitio
+público planetlambo.com.

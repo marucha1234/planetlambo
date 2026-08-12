@@ -1,16 +1,30 @@
 #!/usr/bin/env python3
 """
-Planetlambo - Sync & GEO Optimizer
+Planetlambo - Legacy Mirror (DESACTIVADO)
 
-Descarga el sitio de produccion (https://www.planetlambo.com) y genera en este
-repositorio una copia estatica lista para desplegar, junto con los archivos de
-SEO/GEO (llms.txt, robots.txt, sitemap.xml).
+===========================================================================
+AVISO IMPORTANTE
 
-La fuente de verdad del contenido es SIEMPRE el sitio en produccion: este repo
-no edita textos a mano, se regenera con este script (o con GitHub Actions).
+Este script pertenece a una etapa anterior, en la que el sitio de produccion
+(https://www.planetlambo.com) era la fuente de verdad y este repositorio
+solo albergaba una copia espejo generada automaticamente.
 
-Uso:
-    python optimize.py
+Desde 2026-08-12 el modelo se invirtio: este repositorio es la fuente de
+verdad y Vercel publica planetlambo.com directamente desde `main`.
+
+Correr este script hoy SOBREESCRIBIRIA los archivos versionados (index.html,
+llms.txt, robots.txt, sitemap.xml) con el contenido que devuelva el sitio en
+produccion, lo cual, siendo el propio repo su origen, produciria un loop
+degradante: URLs relativas convertidas a absolutas, perdida de la pagina
+/productora-ia/, del favicon, de la carpeta /css/, /js/ y /assets/.
+
+Se conserva unicamente como referencia historica. El workflow que lo
+disparaba (.github/workflows/build.yml) tambien esta desactivado; solo puede
+ejecutarse a mano, con confirmacion explicita, y a sabiendas del efecto.
+===========================================================================
+
+Uso (solo si se decide volver al modelo espejo):
+    python scripts/legacy-mirror.py
 
 Salida:
     index.html      home en espanol
