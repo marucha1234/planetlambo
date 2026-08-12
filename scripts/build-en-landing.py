@@ -57,6 +57,12 @@ TW_DESCRIPTION = (
 
 T = {
 "Servicios · Productora de IA": "Services · AI Production",
+
+# etiquetas de seccion
+"Servicios": "Services",
+"Resultados y prensa": "Results and press",
+"Criterios": "Criteria",
+"Preguntas frecuentes": "Frequently asked questions",
 "Productora de IA en Latinoamérica": "AI Production Company in Latin America",
 
 "Una productora de IA es una productora publicitaria que usa modelos generativos y sistemas de IA para crear contenido — video, imagen, experiencias interactivas y agentes conversacionales — con tiempos y costos que la producción tradicional no puede alcanzar. No reemplaza el craft: lo acelera y lo escala.":
@@ -175,8 +181,6 @@ T = {
 "We sign an NDA before any sensitive brief conversation and work with flows where each client's data, models and assets are isolated. We have experience with regulated categories (food, financial, retail) and with corporate legal processes.",
 
 "¿Tenés un brief? Hablemos.": "Got a brief? Let's talk.",
-"Buenos Aires · São Paulo — respondemos en 24 horas hábiles.":
-"Buenos Aires · São Paulo — we reply within 24 business hours.",
 "Agendá una llamada": "Book a call",
 "← Volver al inicio": "← Back to home",
 }

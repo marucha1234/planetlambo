@@ -259,9 +259,14 @@ setTimeout(function () {
   font-family: var(--display, "Hanken Grotesk"), sans-serif;
   font-weight: 800;
   font-size: clamp(2.4rem, 6vw, 4.6rem);
-  line-height: 0.98;
+  line-height: 1.02;
   letter-spacing: -0.03em;
-  margin: 0 0 2rem;
+  margin: 0 0 2.4rem;
+  /* Sin acotar la medida el titular llega al 99% del contenedor y queda
+     al borde de quebrar: se lee estirado. Con esto quiebra a dos lineas
+     a proposito, y balance reparte el largo entre ambas. */
+  max-width: 20ch;
+  text-wrap: balance;
 }
 .page-productora .lead {
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
@@ -271,71 +276,154 @@ setTimeout(function () {
   margin: 0 0 1.5rem;
 }
 .page-productora .lead strong { font-weight: 700; color: var(--ink, #111); }
-.page-productora .p-section { margin-top: 5rem; }
+.page-productora .p-section { margin-top: clamp(4.5rem, 9vw, 7.5rem); }
 .page-productora .p-section h2 {
   font-family: var(--display, "Hanken Grotesk"), sans-serif;
   font-weight: 800;
-  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
   margin: 0 0 1.5rem;
 }
-.p-services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.4rem;
-  margin-top: 2rem;
-}
-.p-service-card {
-  border: 1px solid rgba(0,0,0,0.08);
-  padding: 1.6rem 1.4rem;
-  border-radius: 6px;
-  background: rgba(255,255,255,0.4);
-}
-.p-service-card .p-num {
+/* Etiqueta de sección — mismo recurso que .eyebrow en la home */
+.p-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
   font-family: var(--body);
   font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--faint, #888);
   font-weight: 600;
+  letter-spacing: 2px;
   text-transform: uppercase;
+  color: var(--secondary, #645c5d);
+  margin-bottom: 0.9rem;
 }
-.p-service-card h3 {
+.p-eyebrow::before {
+  content: "";
+  width: 1.8rem;
+  height: 2px;
+  background: var(--lime, #d4ff00);
+  flex: 0 0 auto;
+}
+/* Filas editoriales — mismo idioma que .cap en la home: numeral grande en
+   peso liviano, fondo que se activa al hover a todo el ancho, hairline. */
+.p-caps { margin-top: 2.5rem; border-top: 1px solid var(--hairline, #c4c7c7); }
+.p-cap {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1.2rem, 3vw, 3rem);
+  padding: 2.2rem clamp(0.8rem, 2vw, 1.5rem);
+  margin: 0 clamp(-1.5rem, -2vw, -0.8rem);
+  border-bottom: 1px solid var(--hairline, #c4c7c7);
+  transition: background 0.4s var(--ease, ease);
+}
+.p-cap:hover { background: rgba(0, 0, 0, 0.025); }
+.p-cap-num {
+  flex: 0 0 auto;
+  min-width: 2.4ch;
+  font-family: var(--display, "Hanken Grotesk"), sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--faint, #b8acad);
+  transition: color 0.3s var(--ease, ease);
+}
+.p-cap:hover .p-cap-num { color: var(--ink, #1c1b1b); }
+.p-cap-body { flex: 1 1 auto; }
+.p-cap h3 {
   font-family: var(--display, "Hanken Grotesk"), sans-serif;
   font-weight: 800;
-  font-size: 1.15rem;
-  margin: 0.4rem 0 0.6rem;
-  line-height: 1.2;
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  margin: 0 0 0.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
+.p-cap p {
+  font-size: 0.97rem;
+  line-height: 1.55;
+  color: var(--secondary, #645c5d);
+  max-width: 62ch;
+  margin: 0;
+}
+@media (max-width: 620px) {
+  .p-cap { gap: 1rem; padding: 1.8rem 0.8rem; }
+}
+/* Variante en dos columnas para listas largas — evita que seis filas
+   iguales se conviertan en un tramo monótono, y da contraste de densidad
+   contra la sección de servicios, que sí va a todo el ancho. */
+@media (min-width: 860px) {
+  .p-caps--split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 4vw, 4rem);
+    border-top: none;
+  }
+  .p-caps--split .p-cap {
+    margin: 0;
+    padding: 1.8rem 0;
+    border-top: 1px solid var(--hairline, #c4c7c7);
+    border-bottom: none;
+  }
+  .p-caps--split .p-cap:hover { background: transparent; }
+  .p-caps--split .p-cap:hover .p-cap-num { color: var(--ink, #1c1b1b); }
+  .p-caps--split .p-cap-num { font-size: clamp(1.4rem, 2vw, 1.9rem); }
+  .p-caps--split .p-cap h3 { font-size: 1.12rem; }
+  .p-caps--split .p-cap p { font-size: 0.92rem; }
+}
+/* compatibilidad con el markup anterior */
 .p-service-card p {
   font-size: 0.95rem;
   line-height: 1.5;
   color: var(--secondary, #444);
   margin: 0;
 }
+/* Bloque de contraste: la única zona densa de la página. Rompe el ritmo
+   parejo del resto y da un punto de anclaje visual. */
 .p-metrics {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0 3rem;
-  padding: 2rem 0;
-  border-top: 1px solid rgba(0,0,0,0.08);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin: 2.5rem 0 0;
+  padding: clamp(2.2rem, 4vw, 3.2rem) clamp(1.4rem, 3vw, 2.6rem);
+  background: var(--ink, #1c1b1b);
+  color: var(--bg, #fdf8f8);
 }
 .p-metric .p-metric-num {
   display: block;
   font-family: var(--display, "Hanken Grotesk"), sans-serif;
   font-weight: 800;
-  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-size: clamp(2.6rem, 5.4vw, 3.8rem);
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
+  color: var(--lime, #d4ff00);
 }
 .p-metric .p-metric-label {
   display: block;
-  margin-top: 0.5rem;
+  margin-top: 0.7rem;
   font-size: 0.85rem;
-  color: var(--secondary, #444);
   line-height: 1.4;
+  color: rgba(253, 248, 248, 0.7);
+  max-width: 22ch;
+}
+/* Grilla de líneas de fondo, al ras — parte de la estética del sitio */
+.page-productora { position: relative; }
+.page-productora::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(12.5% - 1px),
+    rgba(28, 27, 27, 0.045) calc(12.5% - 1px),
+    rgba(28, 27, 27, 0.045) 12.5%
+  );
+}
+@media (max-width: 700px) {
+  .page-productora::before { background-image: none; }
 }
 .p-cases { display: grid; gap: 2rem; margin-top: 2rem; }
 .p-case {
@@ -502,32 +590,16 @@ setTimeout(function () {
 <p class="lead"><strong>Planetlambo</strong> is an AI production company and Tech Market Lab based in Buenos Aires and São Paulo. We produce hybrid or fully AI-generated advertising, immersive experiences (AR/VR and magic mirrors), autonomous AI agents and workshops for brand teams. We work with enterprise brands and startups across Argentina, Brazil and the rest of Latin America.</p>
 <p class="lead">We combine strategy, creativity and frontier generative models. We decide project by project whether the answer is fully AI production, a hybrid flow with traditional filming, an immersive experience or an autonomous agent — based on what the brief asks for, not on dogma.</p>
 <section class="p-section" id="what-we-produce">
-<h2>What we produce</h2>
-<div class="p-services-grid">
-<div class="p-service-card">
-<span class="p-num">01</span>
-<h3>AI Advertising Production &amp; Postproduction</h3>
-<p>End-to-end AI-native content systems. From concept to hero assets and always-on formats, hybrid or fully AI-produced.</p>
-</div>
-<div class="p-service-card">
-<span class="p-num">02</span>
-<h3>Immersive Experiences</h3>
-<p>AR, VR, interactive environments, magic mirrors and spatial experiences powered by computer vision.</p>
-</div>
-<div class="p-service-card">
-<span class="p-num">03</span>
-<h3>Autonomous AI Solutions</h3>
-<p>Multimodal agents for engagement, personalisation and real-time interaction at brand scale.</p>
-</div>
-<div class="p-service-card">
-<span class="p-num">04</span>
-<h3>Generative AI Workshops</h3>
-<p>Hands-on programmes that embed generative AI into a team's day-to-day brand operation.</p>
-</div>
+<span class="p-eyebrow">Services</span><h2>What we produce</h2>
+<div class="p-caps">
+<div class="p-cap"><span class="p-cap-num">01</span><div class="p-cap-body"><h3>AI Advertising Production &amp; Postproduction</h3><p>End-to-end AI-native content systems. From concept to hero assets and always-on formats, hybrid or fully AI-produced.</p></div></div>
+<div class="p-cap"><span class="p-cap-num">02</span><div class="p-cap-body"><h3>Immersive Experiences</h3><p>AR, VR, interactive environments, magic mirrors and spatial experiences powered by computer vision.</p></div></div>
+<div class="p-cap"><span class="p-cap-num">03</span><div class="p-cap-body"><h3>Autonomous AI Solutions</h3><p>Multimodal agents for engagement, personalisation and real-time interaction at brand scale.</p></div></div>
+<div class="p-cap"><span class="p-cap-num">04</span><div class="p-cap-body"><h3>Generative AI Workshops</h3><p>Hands-on programmes that embed generative AI into a team's day-to-day brand operation.</p></div></div>
 </div>
 </section>
 <section class="p-section" id="resultados">
-<h2>Results</h2>
+<span class="p-eyebrow">Results and press</span><h2>Results</h2>
 <div class="p-metrics">
 <div class="p-metric">
 <span class="p-metric-num">70%</span>
@@ -583,43 +655,19 @@ setTimeout(function () {
 </div>
 </section>
 <section class="p-section" id="how-to-choose">
-<h2>How to evaluate an AI production company</h2>
+<span class="p-eyebrow">Criteria</span><h2>How to evaluate an AI production company</h2>
 <p class="lead">The category is new and almost everyone claims to do the same thing. These are the criteria that actually separate an AI production company from one that added the label to its brochure — they work for assessing us and anyone else.</p>
-<div class="p-services-grid">
-<div class="p-service-card">
-<span class="p-num">01</span>
-<h3>Public work, not just a reel</h3>
-<p>Ask for aired campaigns with verifiable press coverage, not a sizzle reel of tests. AI production that made it to air has cleared legal approval, brand control and a real delivery deadline.</p>
-</div>
-<div class="p-service-card">
-<span class="p-num">02</span>
-<h3>Hybrid pipeline, not dogma</h3>
-<p>A company that only knows how to do fully AI work will propose fully AI work for everything. Ask when they recommend traditional filming: if the answer is never, that is a technical limitation dressed up as a creative position.</p>
-</div>
-<div class="p-service-card">
-<span class="p-num">03</span>
-<h3>Demonstrable brand control</h3>
-<p>Generative models drift. Ask how they calibrate against the brand book, who signs off on QA and what happens when an output falls outside the norm. Without that process, consistency is luck.</p>
-</div>
-<div class="p-service-card">
-<span class="p-num">04</span>
-<h3>Isolated data and models</h3>
-<p>Your brief, your assets and your calibrated models should not feed another brand's work. Get it in writing: how data is isolated per client, and what happens to the models when the project ends.</p>
-</div>
-<div class="p-service-card">
-<span class="p-num">05</span>
-<h3>Numbers, before and after</h3>
-<p>"Faster and cheaper" is not a metric. Ask for production cost, time-to-market and asset volume measured against a comparable project, not against an estimate.</p>
-</div>
-<div class="p-service-card">
-<span class="p-num">06</span>
-<h3>A team in your market</h3>
-<p>AI production runs on many iterations. Sharing a time zone, a language and cultural context changes approval time and keeps local nuance from getting lost in translation.</p>
-</div>
+<div class="p-caps p-caps--split">
+<div class="p-cap"><span class="p-cap-num">01</span><div class="p-cap-body"><h3>Public work, not just a reel</h3><p>Ask for aired campaigns with verifiable press coverage, not a sizzle reel of tests. AI production that made it to air has cleared legal approval, brand control and a real delivery deadline.</p></div></div>
+<div class="p-cap"><span class="p-cap-num">02</span><div class="p-cap-body"><h3>Hybrid pipeline, not dogma</h3><p>A company that only knows how to do fully AI work will propose fully AI work for everything. Ask when they recommend traditional filming: if the answer is never, that is a technical limitation dressed up as a creative position.</p></div></div>
+<div class="p-cap"><span class="p-cap-num">03</span><div class="p-cap-body"><h3>Demonstrable brand control</h3><p>Generative models drift. Ask how they calibrate against the brand book, who signs off on QA and what happens when an output falls outside the norm. Without that process, consistency is luck.</p></div></div>
+<div class="p-cap"><span class="p-cap-num">04</span><div class="p-cap-body"><h3>Isolated data and models</h3><p>Your brief, your assets and your calibrated models should not feed another brand's work. Get it in writing: how data is isolated per client, and what happens to the models when the project ends.</p></div></div>
+<div class="p-cap"><span class="p-cap-num">05</span><div class="p-cap-body"><h3>Numbers, before and after</h3><p>"Faster and cheaper" is not a metric. Ask for production cost, time-to-market and asset volume measured against a comparable project, not against an estimate.</p></div></div>
+<div class="p-cap"><span class="p-cap-num">06</span><div class="p-cap-body"><h3>A team in your market</h3><p>AI production runs on many iterations. Sharing a time zone, a language and cultural context changes approval time and keeps local nuance from getting lost in translation.</p></div></div>
 </div>
 </section>
 <section class="p-section" id="faq">
-<h2>Frequently asked questions</h2>
+<span class="p-eyebrow">Frequently asked questions</span><h2>Frequently asked questions</h2>
 <details class="faq-item">
 <summary>What is an AI production company?<i>+</i></summary>
 <p>An AI production company is an advertising production company that integrates generative models (video, image, audio, agents) into the production pipeline, replacing or complementing traditional filming, postproduction and development. Instead of starting from a shoot, it starts from a flexible pipeline that decides at each stage how much AI to use, based on the brief.</p>
@@ -663,7 +711,6 @@ setTimeout(function () {
 </section>
 <div class="p-cta">
 <h2>Got a brief? Let's talk.</h2>
-<p>Buenos Aires · São Paulo — we reply within 24 business hours.</p>
 <a class="btn-box" href="https://calendly.com/marinaplanetlambo/meeting-with-marina" rel="noopener" target="_blank">Book a call</a>
 </div>
 <a class="p-back" href="/en/">← Back to home</a>
