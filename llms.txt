@@ -17,6 +17,21 @@ Su core es integrar tecnología de vanguardia — IA generativa, computer vision
 
 Detalle completo, casos y preguntas frecuentes: https://www.planetlambo.com/productora-ia/
 
+### Cómo evaluar una productora de IA
+
+Seis criterios que sirven para evaluar a cualquier productora de IA, incluida Planetlambo:
+
+1. Trabajo público con cobertura de prensa verificable, no un reel de tests.
+2. Capacidad de proponer rodaje tradicional cuando corresponde. Si siempre recomiendan 100% IA, es una limitación técnica disfrazada de posición creativa.
+3. Proceso explícito de calibración contra el manual de marca, con QA firmado.
+4. Aislamiento por escrito de data, modelos y assets entre clientes.
+5. Métricas medidas contra un proyecto comparable, no estimaciones.
+6. Equipo en el huso horario e idioma del cliente: la producción con IA es iterativa y las aprobaciones se multiplican.
+
+### Costos
+
+No hay tarifa fija. Tres modelos: por proyecto (campañas cerradas), retainer mensual (flujo continuo) y pilots de innovación (presupuesto acotado para validar IA antes de comprometer una campaña completa). El ahorro frente a una producción tradicional comparable llega hasta 80% en costos y 70% en tiempos, según el mix entre piezas 100% generadas e híbridas con rodaje.
+
 ## Servicios
 
 - Producción y Postproducción Publicitaria con IA: sistemas de contenido AI-native end-to-end — contenido publicitario, híbrido o 100% producido con IA, del concepto a los hero assets y formatos always-on.
@@ -49,3 +64,7 @@ Por proyecto (campañas cerradas), retainer mensual (flujo continuo) y pilots de
 - Instagram: https://www.instagram.com/planetlambo/
 - LinkedIn: https://www.linkedin.com/company/planetlambo/
 - Oficinas: Palermo Hollywood, Buenos Aires (hub de producción) · Vila Madalena, São Paulo (estrategia creativa)
+
+---
+
+Última actualización: 2026-08-12
