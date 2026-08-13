@@ -72,4 +72,51 @@ Por proyecto (campañas cerradas), retainer mensual (flujo continuo) y pilots de
 
 ---
 
-Última actualización: 2026-08-12
+# In English
+
+> Planetlambo is a global, independent Tech Market Lab based in Buenos Aires and São Paulo, working with brands worldwide. It is an AI production company in Latin America: it designs, produces and scales advertising campaigns, immersive experiences, multimodal agents and martech solutions. Clients include McDonald's, Unilever, Danone, Mostaza, Lemon, Wanama and Olé.
+
+Planetlambo (always written as one word) combines strategy, creativity and frontier AI. It does AI advertising production and postproduction — hybrid (traditional shoot plus generative AI) or fully generated — with up to 80% more efficiency and 6× more assets than traditional methods. A fully AI piece is delivered in 2–4 weeks versus 6–12 for a comparable shoot.
+
+## Pages in English
+
+- Home: https://www.planetlambo.com/en/
+- AI Production Company in Latin America: https://www.planetlambo.com/en/ai-production-company/
+
+## Services
+
+- AI Advertising Production & Postproduction: end-to-end AI-native content systems — hybrid or fully AI-produced advertising, from concept to hero assets and always-on formats.
+- Immersive Experiences: AR, VR, interactive environments, magic mirrors and spatial experiences powered by computer vision.
+- Autonomous AI Solutions: multimodal agents for engagement, personalisation and real-time interaction at brand scale.
+- Generative AI Workshops: hands-on programmes that embed generative AI into a team's day-to-day brand operation.
+
+## How to evaluate an AI production company
+
+Six criteria that work for assessing any AI production company, Planetlambo included:
+
+1. Public work with verifiable press coverage, not a reel of tests.
+2. The ability to recommend traditional filming when it fits. If they always recommend fully AI, that is a technical limitation dressed up as a creative position.
+3. An explicit process for calibrating against the brand book, with signed QA.
+4. Written isolation of data, models and assets between clients.
+5. Metrics measured against a comparable project, not estimates.
+6. A team in the client's time zone and language: AI production is iterative and approvals multiply.
+
+## Pricing
+
+No fixed rate. Three models: per project (closed campaigns), monthly retainer (continuous flow) and innovation pilots (contained budgets to validate AI before committing to a full campaign). Savings against a comparable traditional production reach up to 80% on cost and 70% on time, depending on the mix between fully generated and hybrid pieces.
+
+## Working model
+
+Signs NDAs and isolates data, models and assets per client. Calibrates generative models against each brand's guidelines; every output goes through brand QA. Measured KPIs: production cost, time-to-market, engagement, conversion.
+
+## Contact
+
+- Web: https://www.planetlambo.com/en/
+- Book a call: https://calendly.com/marinaplanetlambo/meeting-with-marina
+- Instagram: https://www.instagram.com/planetlambo/
+- LinkedIn: https://www.linkedin.com/company/planetlambo/
+- Offices: Buenos Aires · São Paulo
+
+---
+
+Última actualización / Last updated: 2026-08-12

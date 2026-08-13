@@ -4,6 +4,61 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<script>
+/* Idioma por defecto segun la preferencia del navegador.
+   Va inline y arriba de todo para redirigir antes de pintar: un redirect
+   despues del render produce un parpadeo del idioma equivocado.
+
+   Tres reglas que lo mantienen seguro para SEO/GEO:
+   1. Nunca toca a los crawlers. Deben ver siempre la version servida en su
+      URL, o Google no indexa las dos variantes.
+   2. Solo actua en la primera visita. Si el usuario ya eligio idioma, su
+      eleccion manda sobre la del navegador.
+   3. Si el navegador no pide ni ES ni EN, no hace nada: queda el
+      x-default, que es el espanol. */
+(function () {
+  var BOTS = /bot|crawl|spider|slurp|gptbot|claudebot|perplexity|bingpreview|facebookexternalhit|embedly|slackbot|twitterbot|whatsapp|telegram|headless|lighthouse/i;
+  try { if (BOTS.test(navigator.userAgent)) return; } catch (e) { return; }
+
+  var PARES = {
+    "/": "/en/",
+    "/productora-ia/": "/en/ai-production-company/",
+    "/en/": "/",
+    "/en/ai-production-company/": "/productora-ia/"
+  };
+
+  /* Guardar la eleccion cuando el usuario usa el selector, para no
+     redirigirlo de vuelta en la pagina siguiente. */
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest && e.target.closest("a[hreflang]");
+    if (!a) return;
+    try {
+      localStorage.setItem("pl-lang",
+        a.getAttribute("hreflang").indexOf("en") === 0 ? "en" : "es");
+    } catch (err) {}
+  }, true);
+
+  try { if (localStorage.getItem("pl-lang")) return; } catch (e) { return; }
+
+  var path = location.pathname.replace(/index\.html$/, "");
+  if (path.charAt(path.length - 1) !== "/") path += "/";
+  var destino = PARES[path];
+  if (!destino) return;
+
+  var idiomas = navigator.languages || [navigator.language || ""];
+  var quiere = null;
+  for (var i = 0; i < idiomas.length; i++) {
+    var l = String(idiomas[i]).toLowerCase();
+    if (l.indexOf("es") === 0) { quiere = "es"; break; }
+    if (l.indexOf("en") === 0) { quiere = "en"; break; }
+  }
+  if (!quiere) return;
+
+  var estoyEnEN = path.indexOf("/en/") === 0;
+  if ((quiere === "en") !== estoyEnEN) location.replace(destino);
+})();
+</script>
+
 <title>Productora de IA en Latinoamérica — Argentina y Brasil | Planetlambo</title>
 <meta content="Productora de IA en Latinoamérica: producción publicitaria con inteligencia artificial, postproducción, experiencias inmersivas, agentes multimodales y workshops. Argentina y Brasil — Buenos Aires · São Paulo. Con cobertura de prensa en LatinSpots y Adlatina." name="description"/>
 <meta content="index, follow, max-image-preview:large" name="robots"/>
