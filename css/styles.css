@@ -766,20 +766,49 @@ body.cinema-open .nav { opacity: 0; pointer-events: none; }
   text-align: center;
 }
 
-/* Grid cards — masonry mosaic: columns pack tight, shapes create the rhythm */
+/* Grid cards — CSS Grid, no multi-columna.
+   Con `columns` el navegador llenaba cada columna de arriba abajo, asi que
+   el orden del DOM no coincidia con la lectura de izquierda a derecha: la
+   segunda pieza del listado caia debajo de la primera, no al lado. Con Grid
+   el orden declarado es el orden que se lee.
+   Las tarjetas alinean arriba; las distintas relaciones de aspecto siguen
+   dando el escalonado, ahora al pie de cada fila. */
 .grid {
-  columns: 3;
-  column-gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+  /* todas las filas del mismo alto: la grilla queda pareja de punta a punta */
+  grid-auto-rows: 1fr;
 }
 
 .grid .card {
-  break-inside: avoid;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
+  /* el pie de texto se estira para que todas las tarjetas cierren igual,
+     aunque los titulos ocupen distinta cantidad de lineas */
+  display: flex;
+  flex-direction: column;
 }
 
-.card--land .card-img img { aspect-ratio: 4 / 3; }
-.card--mid .card-img img  { aspect-ratio: 3 / 4; }
-.card--full .card-img img { aspect-ratio: 16 / 10; }
+.grid .card > :last-child {
+  flex: 1 1 auto;
+}
+
+/* Formato unico 4/3 para todas las piezas — la referencia es Wild Spirit.
+   Las clases card--land / card--mid / card--full quedan en el markup pero
+   ya no cambian la relacion de aspecto: la grilla es regular y todas las
+   tarjetas miden lo mismo. */
+.card--land .card-img img,
+.card--mid .card-img img,
+.card--full .card-img img { aspect-ratio: 4 / 3; }
+
+/* Ajustes de encuadre. Al pasar de fuente cuadrada a 4/3 se recorta el 25%
+   de la altura; con el encuadre centrado se va la mitad arriba y la mitad
+   abajo. En Magic Mirror eso cortaba el cartel "¿TE ENCANTÓ?", asi que el
+   recorte se corre hacia arriba para conservar texto y rostro completos.
+   Va por nombre de archivo: aplica igual en espanol y en ingles, que
+   comparten hoja de estilos. */
+.card-img img[src$="work3.webp"] { object-position: center 25%; }
 
 .card {
   text-decoration: none;
@@ -796,7 +825,7 @@ body.cinema-open .nav { opacity: 0; pointer-events: none; }
 
 .card-img img {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   filter: grayscale(1) contrast(1.05);
   transition: transform 0.7s var(--ease), filter 0.5s;
@@ -1346,7 +1375,7 @@ body.cinema-open #cinema { opacity: 1; visibility: visible; }
 @media (max-width: 980px) {
   .split { grid-template-columns: 1fr; }
   .split-left { border-right: 0; border-bottom: 1px solid var(--hairline); }
-  .grid { columns: 2; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
   .studio-grid { grid-template-columns: 1fr; gap: 2rem; }
   .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .brand-tag { display: none; }
@@ -1432,8 +1461,8 @@ body.menu-open .nav-burger span:last-child { transform: translateY(-3.5px) rotat
 @media (max-width: 640px) {
   .hud { padding-top: 5rem; }
   .hud-row .hud-item:first-child { display: none; }
-  .grid { columns: 1; }
-  .card--mid .card-img img { aspect-ratio: 16 / 10; }
+  .grid { grid-template-columns: 1fr; }
+  /* en mobile tambien 4/3: el formato es unico en todos los anchos */
   .stats { grid-template-columns: 1fr; max-width: none; }
   .stat { padding: 1.1rem 0 1rem; }
   .stat + .stat { border-left: 0; border-top: 1px solid var(--hairline); padding-left: 0; }
