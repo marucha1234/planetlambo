@@ -83,6 +83,34 @@ ORG_DESCRIPTION = (
     "— with up to 80% more efficiency than traditional methods."
 )
 
+# Los servicios del nodo Organization. Se traducian solo en el HTML visible;
+# el JSON-LD quedaba en espanol en la pagina inglesa, o sea que a los
+# buscadores les declarabamos los servicios en el idioma equivocado.
+SERVICIOS = {
+    "Producción y Postproducción Publicitaria con IA": (
+        "AI Advertising Production & Postproduction",
+        "End-to-end AI-native content systems: hybrid or fully AI-produced "
+        "advertising, from concept to hero assets and always-on formats."),
+    "Experiencias Inmersivas": (
+        "Immersive Experiences",
+        "AR, VR, interactive environments, magic mirrors and spatial "
+        "experiences powered by computer vision."),
+    "Soluciones Autónomas con IA": (
+        "Autonomous AI Solutions",
+        "Multimodal agents for engagement, personalisation and real-time "
+        "interaction at brand scale."),
+    "Workshops de IA Generativa": (
+        "Generative AI Workshops",
+        "Hands-on programmes that embed generative AI into a team's "
+        "day-to-day brand operation."),
+    "Auditoría GEO y Web AI-First": (
+        "GEO Audit & AI-First Web",
+        "Technical and content audits that get AI models to find, understand "
+        "and cite the brand: structured data, crawlable architecture, "
+        "llms.txt, hreflang and content in the shape generative engines "
+        "extract."),
+}
+
 WEBPAGE_NAME = "Planetlambo — Tech Market Lab · AI Production Company for Brands"
 WEBPAGE_DESCRIPTION = (
     "Tech Market Lab and AI production company: AI advertising production and "
@@ -221,6 +249,10 @@ def reescribir_jsonld(soup):
         tipo = nodo.get("@type")
         if tipo == "Organization":
             nodo["description"] = ORG_DESCRIPTION
+            for oferta in nodo.get("makesOffer", []):
+                serv = oferta.get("itemOffered", {})
+                if serv.get("name") in SERVICIOS:
+                    serv["name"], serv["description"] = SERVICIOS[serv["name"]]
         elif tipo == "WebSite":
             nodo["@id"] = SITIO + "/#website"
         elif tipo == "WebPage":

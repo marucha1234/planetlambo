@@ -43,6 +43,7 @@ No hay tarifa fija. Tres modelos: por proyecto (campañas cerradas), retainer me
 - Experiencias Inmersivas: AR, VR, entornos interactivos, magic mirrors y experiencias espaciales impulsadas por computer vision.
 - Soluciones Autónomas con IA: agentes multimodales para engagement, personalización e interacción en tiempo real a escala de marca.
 - Workshops: programas hands-on que integran IA generativa en la operación diaria de marca de los equipos.
+- Auditoría GEO y Web AI-First: auditoría técnica y de contenido para que los modelos de IA encuentren, entiendan y citen la marca. Cubre qué contenido llega sin ejecutar JavaScript, datos estructurados (schema.org), llms.txt, hreflang, arquitectura rastreable y contenido en el formato que los motores generativos extraen. Posicionar en Google ya no alcanza: hay que estar en la respuesta.
 
 ## Campañas destacadas
 
@@ -89,6 +90,7 @@ Planetlambo (always written as one word) combines strategy, creativity and front
 - Immersive Experiences: AR, VR, interactive environments, magic mirrors and spatial experiences powered by computer vision.
 - Autonomous AI Solutions: multimodal agents for engagement, personalisation and real-time interaction at brand scale.
 - Generative AI Workshops: hands-on programmes that embed generative AI into a team's day-to-day brand operation.
+- GEO Audit & AI-First Web: technical and content audits that get AI models to find, understand and cite the brand. Covers what content arrives without running JavaScript, structured data (schema.org), llms.txt, hreflang, crawlable architecture and content in the shape generative engines extract. Ranking on Google is no longer the point: you need to be in the answer.
 
 ## How to evaluate an AI production company
 

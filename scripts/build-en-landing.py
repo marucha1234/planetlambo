@@ -87,6 +87,9 @@ T = {
 "Workshops de IA Generativa": "Generative AI Workshops",
 "Programas hands-on que integran IA generativa en la operación diaria de marca de los equipos.":
 "Hands-on programmes that embed generative AI into a team's day-to-day brand operation.",
+"Auditoría GEO y Web AI-First": "GEO Audit &amp; AI-First Web",
+"Auditamos el sitio como lo lee un modelo, no como lo lee una persona: qué contenido llega sin ejecutar JavaScript, qué datos estructurados hay, si el llms.txt existe y si las respuestas están en el formato que un motor generativo puede extraer y citar.":
+"We audit the site the way a model reads it, not the way a person does: what content arrives without running JavaScript, what structured data is in place, whether an llms.txt exists, and whether the answers are in a shape a generative engine can extract and cite.",
 
 "Resultados": "Results",
 "Tiempos de producción más rápidos": "Faster production timelines",
@@ -323,6 +326,7 @@ def reescribir_jsonld(soup):
                 "Experiencias Inmersivas": ("Immersive Experiences", "AR, VR, interactive environments, magic mirrors and spatial experiences powered by computer vision."),
                 "Soluciones Autónomas con IA": ("Autonomous AI Solutions", "Multimodal agents for engagement, personalisation and real-time interaction at brand scale."),
                 "Workshops de IA Generativa": ("Generative AI Workshops", "Hands-on programmes that embed generative AI into a team's day-to-day brand operation."),
+                "Auditoría GEO y Web AI-First": ("GEO Audit & AI-First Web", "We audit the site the way a model reads it: what content arrives without running JavaScript, what structured data is in place, whether an llms.txt exists, and whether the answers are in a shape a generative engine can extract and cite."),
             }
             for oferta in cat.get("itemListElement", []):
                 s = oferta.get("itemOffered", {})
