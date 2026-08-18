@@ -497,15 +497,31 @@
   ]
 }</script>
 <script>
-// JS-gated presentation (loader, reveals): if nothing has revealed after
-// 1.6s (script failed, frozen tab, file:// open), drop the class so all
-// content is simply visible and the loader never traps the page.
+// Presentacion gobernada por JS (loader, reveals). Si el script fallo
+// —tab congelada, apertura por file://, error de red— se saca la clase y
+// todo el contenido queda simplemente visible, sin quedar atrapado.
+//
+// El plazo tiene que ser MAYOR que la duracion del loader. Estaba en 1.6s
+// y el loader tarda ~2.95s (cuenta hasta 100 a razon de elapsed/26, mas
+// 350ms de salida) y ademas tiene su propia red de seguridad a los 6s.
+// Como el primer .reveal esta a 1028px, debajo del pliegue, al segundo
+// 1.6 nunca hay ninguno revelado ni el loader terminado: la condicion de
+// rescate se cumplia SIEMPRE y le quitaba la clase a la pagina en cada
+// visita, cortando el loader por la mitad y dejando sin animacion los 34
+// reveals por el resto de la sesion.
+//
+// Ahora espera 7s —despues de la red propia del loader— y ademas se
+// abstiene si el contador avanzo, que es prueba de que el JS esta vivo.
 document.documentElement.classList.add("js");
 setTimeout(function () {
-  if (!document.querySelector(".reveal.in") && !document.body.classList.contains("loaded")) {
+  var pct = document.getElementById("loaderPct");
+  var contadorAvanzo = pct && pct.textContent !== "000";
+  if (!contadorAvanzo &&
+      !document.querySelector(".reveal.in") &&
+      !document.body.classList.contains("loaded")) {
     document.documentElement.classList.remove("js");
   }
-}, 1600);
+}, 7000);
 </script>
 <!-- Google Analytics 4 -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3SPLVJLK64"></script>
