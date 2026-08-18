@@ -27,7 +27,10 @@ loaderVideo.play().catch(() => {});
 const loaderCanvas = document.getElementById("loaderCanvas");
 const lctx = loaderCanvas.getContext("2d");
 const posterImg = new Image();
-posterImg.src = "assets/poster.jpg";
+/* Ruta absoluta: main.js es un archivo compartido entre / y /en/, asi que
+   una relativa resuelve contra la URL de la pagina y desde /en/ apunta a
+   /en/assets/, que no existe. */
+posterImg.src = "/assets/poster.jpg";
 
 const coverDraw = (source, sw, sh) => {
   const cw = loaderCanvas.width;
@@ -309,7 +312,7 @@ const openCase = (card) => {
   const cardImg = card.querySelector(".card-img img");
   if (cardImg) caseVideo.poster = cardImg.currentSrc || cardImg.src;
   // Full campaign video when available; reel segment as fallback
-  const src = card.dataset.video || "assets/reel.mp4";
+  const src = card.dataset.video || "/assets/reel.mp4";
   if (card.dataset.video) {
     segStart = 0;
     segEnd = 0;
