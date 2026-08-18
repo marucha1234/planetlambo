@@ -498,7 +498,7 @@ setTimeout(function () {
 <body class="loading">
 <!-- LOADER — knockout type over the reel -->
 <div aria-hidden="true" id="loader">
-<video autoplay="" data-desk="assets/reel-lite.mp4" data-mob="assets/reel-mobile.mp4" id="loaderVideo" loop="" muted="" playsinline="" poster="/assets/poster.jpg" preload="auto"></video>
+<video autoplay="" data-desk="/assets/reel-lite.mp4" data-mob="/assets/reel-mobile.mp4" id="loaderVideo" loop="" muted="" playsinline="" poster="/assets/poster.jpg" preload="auto"></video>
 <script>(function(){var v=document.getElementById('loaderVideo');if(!matchMedia('(max-width:800px)').matches){v.src=v.dataset.desk;v.load();var p=v.play();if(p&&p.catch)p.catch(function(){});}})();</script>
 <canvas aria-hidden="true" id="loaderCanvas"></canvas>
 <div class="knockout">
@@ -519,9 +519,9 @@ setTimeout(function () {
 <a data-en="Our Lab" data-es="Nuestro Lab" href="#studio">Our Lab</a>
 </nav>
 <span class="nav-lang">
-<button class="lang-btn active" data-setlang="es" type="button">ES</button>
+<a class="lang-btn" data-setlang="es" href="/" hreflang="es-419" lang="es">ES</a>
 <i>/</i>
-<button class="lang-btn" data-setlang="en" type="button">EN</button>
+<a aria-current="true" class="lang-btn active" data-setlang="en" href="/en/" hreflang="en" lang="en">EN</a>
 </span>
 <a class="nav-cta" data-en="Contact" data-es="Contacto" href="https://calendly.com/marinaplanetlambo/meeting-with-marina" rel="noopener" target="_blank">Contact</a>
 <button aria-expanded="false" aria-label="Menú" class="nav-burger" id="navBurger" type="button">
@@ -531,7 +531,7 @@ setTimeout(function () {
 <main id="top">
 <!-- HERO — full-bleed reel with HUD -->
 <section class="hero-reel" id="showreel">
-<video autoplay="" data-desk="assets/reel-lite.mp4" data-mob="assets/reel-mobile.mp4" id="heroVideo" loop="" muted="" playsinline="" poster="/assets/poster.jpg" preload="auto"></video>
+<video autoplay="" data-desk="/assets/reel-lite.mp4" data-mob="/assets/reel-mobile.mp4" id="heroVideo" loop="" muted="" playsinline="" poster="/assets/poster.jpg" preload="auto"></video>
 <script>(function(){var v=document.getElementById('heroVideo');v.src=matchMedia('(max-width:800px)').matches?v.dataset.mob:v.dataset.desk;v.load();var p=v.play();if(p&&p.catch)p.catch(function(){});})();</script>
 <div aria-hidden="true" class="hero-veil"></div>
 <div class="hud">
@@ -559,7 +559,7 @@ setTimeout(function () {
 <div class="split-left">
 <span class="eyebrow reveal">01 — Tech Market Lab</span>
 <h2 class="claim-title knock reveal">
-<video class="knock-video" data-desk="assets/reel-lite.mp4" data-mob="assets/reel-mobile.mp4" data-offset="18" loop="" muted="" playsinline="" preload="none"></video>
+<video class="knock-video" data-desk="/assets/reel-lite.mp4" data-mob="/assets/reel-mobile.mp4" data-offset="18" loop="" muted="" playsinline="" preload="none"></video>
 <span class="knock-plate" data-en="The most inspiring&lt;br&gt;Tech&amp;nbsp;Market&amp;nbsp;Lab" data-es="El Tech Market Lab&lt;br/&gt;más inspirador">The most inspiring<br/>Tech Market Lab</span>
 </h2>
 <p class="claim-sub reveal" data-en="&lt;mark&gt;Strategy, creativity, and frontier AI&lt;/mark&gt;, integrated to design, produce, and scale campaigns for curious brands." data-es="&lt;mark&gt;Estrategia, creatividad e IA de frontera&lt;/mark&gt;, integradas para diseñar,
@@ -631,7 +631,7 @@ setTimeout(function () {
 <span class="eyebrow" data-en="03 — Archive" data-es="03 — Archivo">03 — Archive</span>
 <h2 class="section-title" data-en="Selected Work" data-es="Campañas Seleccionadas">Selected Work</h2>
 </div>
-<a class="show-all" data-en="See all campaigns &lt;span&gt;→&lt;/span&gt;" data-es="Ver todas &lt;span&gt;→&lt;/span&gt;" href="https://planetlambo.com" rel="noopener" target="_blank">See all campaigns <span>→</span></a>
+<button class="show-all" data-en="See all campaigns &lt;span&gt;→&lt;/span&gt;" data-es="Ver todas &lt;span&gt;→&lt;/span&gt;" type="button">See all campaigns <span>→</span></button>
 </div>
 <div class="filters reveal">
 <span class="filters-label" data-en="Filter" data-es="Filtro">Filter</span>
@@ -664,57 +664,57 @@ setTimeout(function () {
 </div>
 <div class="grid">
 <p class="grid-empty" data-en="No projects match this filter." data-es="Ningún proyecto coincide con este filtro." hidden="" id="gridEmpty">No projects match this filter.</p>
-<a class="card card--mid reveal" data-client="mostaza" data-end="31.5" data-start="24.5" data-type="content" data-video="assets/case-mostaza.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+<button class="card card--mid reveal" data-client="mostaza" data-end="31.5" data-start="24.5" data-type="content" data-video="/assets/case-mostaza.mp4" type="button">
 <span class="card-img"><img alt="La Mega Charrúa — Mostaza" decoding="async" loading="lazy" src="/assets/work9.webp"/></span>
 <span class="card-row"><span class="card-title">La Mega Charrúa</span></span>
 <span class="card-meta" data-en="Client: Mostaza" data-es="Cliente: Mostaza">Client: Mostaza</span>
 <span class="card-desc" data-en="World Cup campaign for Mostaza Uruguay blending traditional production with generative AI. With agency Cheche." data-es="Campaña mundialista para Mostaza Uruguay que combina realización tradicional con IA generativa. Junto a la agencia Cheche.">World Cup campaign for Mostaza Uruguay blending traditional production with generative AI. With agency Cheche.</span>
-</a><a class="card card--mid reveal" data-client="ole" data-end="24" data-start="17.5" data-type="content" data-video="assets/case-ole.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+</button><button class="card card--mid reveal" data-client="ole" data-end="24" data-start="17.5" data-type="content" data-video="/assets/case-ole.mp4" type="button">
 <span class="card-img"><img alt="Campaña Mundial — Olé" decoding="async" loading="lazy" src="/assets/work5.webp"/></span>
 <span class="card-row"><span class="card-title" data-en="World Cup Campaign" data-es="Campaña Mundial">World Cup Campaign</span></span>
 <span class="card-meta" data-en="Client: Olé" data-es="Cliente: Olé">Client: Olé</span>
 <span class="card-desc" data-en="We've already seen the national team win — but some fans haven't lived that glory yet. Olé turns 30 with the most human insight of the next World Cup." data-es="Ya vimos a la Selección ganar, pero hay fans que todavía no pudieron vivir esa gloria. Olé celebra 30 años con el insight más humano del próximo Mundial.">We've already seen the national team win — but some fans haven't lived that glory yet. Olé turns 30 with the most human insight of the next World Cup.</span>
-</a><a class="card card--mid reveal" data-client="unilever" data-end="42" data-start="37" data-type="experience" data-video="assets/case-sedal.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+</button><button class="card card--mid reveal" data-client="unilever" data-end="42" data-start="37" data-type="experience" data-video="/assets/case-sedal.mp4" type="button">
 <span class="card-img"><img alt="Sedal Magic Mirror — Unilever" decoding="async" loading="lazy" src="/assets/work3.webp"/></span>
 <span class="card-row"><span class="card-title">Magic Mirror</span></span>
 <span class="card-meta" data-en="Client: Unilever — Sedal" data-es="Cliente: Unilever — Sedal">Client: Unilever — Sedal</span>
 <span class="card-desc" data-en="Event experience powered by Magic Mirror technology and computer vision for real-time haircare recommendations." data-es="Experiencia en eventos con tecnología Magic Mirror, potenciada por computer vision para recomendaciones de cuidado capilar en tiempo real.">Event experience powered by Magic Mirror technology and computer vision for real-time haircare recommendations.</span>
-</a><a class="card card--land reveal" data-client="danone" data-end="67" data-start="63" data-type="agent" data-video="assets/case-casanchef.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+</button><button class="card card--land reveal" data-client="danone" data-end="67" data-start="63" data-type="agent" data-video="/assets/case-casanchef.mp4" type="button">
 <span class="card-img"><img alt="CasanChef — Danone" decoding="async" loading="lazy" src="/assets/work4.webp"/></span>
 <span class="card-row"><span class="card-title">CasanChef</span></span>
 <span class="card-meta" data-en="Client: Danone" data-es="Cliente: Danone">Client: Danone</span>
 <span class="card-desc" data-en="Multimodal cooking agent on WhatsApp with vision, natural language and AI recipes." data-es="Agente de cocina multimodal en WhatsApp con visión, lenguaje natural y recetas AI.">Multimodal cooking agent on WhatsApp with vision, natural language and AI recipes.</span>
-</a><a class="card card--land reveal" data-client="extremas" data-end="62" data-start="47.5" data-type="content" data-video="assets/case-extremas.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+</button><button class="card card--land reveal" data-client="extremas" data-end="62" data-start="47.5" data-type="content" data-video="/assets/case-extremas.mp4" type="button">
 <span class="card-img"><img alt="Heroicas — Hamburguesas Extremas" decoding="async" loading="lazy" src="/assets/work10.webp"/></span>
 <span class="card-row"><span class="card-title">Heroicas</span></span>
 <span class="card-meta" data-en="Client: Hamburguesas Extremas" data-es="Cliente: Hamburguesas Extremas">Client: Hamburguesas Extremas</span>
 <span class="card-desc" data-en="A monument to the real heroes of the World Cup: the ones who wake up early, stick to the cábala and never lose their hunger for glory. With Sandwich." data-es="Un monumento a los verdaderos héroes del Mundial: los que se levantan temprano, bancan la cábala y nunca pierden el hambre de gloria. Junto a Sandwich.">A monument to the real heroes of the World Cup: the ones who wake up early, stick to the cábala and never lose their hunger for glory. With Sandwich.</span>
-</a><a class="card card--land reveal" data-client="lemon" data-end="17.5" data-start="11" data-type="content" data-video="assets/case-lemon.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+</button><button class="card card--land reveal" data-client="lemon" data-end="17.5" data-start="11" data-type="content" data-video="/assets/case-lemon.mp4" type="button">
 <span class="card-img"><img alt="La Lemonera — Lemon" decoding="async" loading="lazy" src="/assets/work6.webp"/></span>
 <span class="card-row"><span class="card-title">La Lemonera</span></span>
 <span class="card-meta" data-en="Client: Lemon" data-es="Cliente: Lemon">Client: Lemon</span>
 <span class="card-desc" data-en="AI-produced hero campaign for weekly rewards with cinematic storytelling." data-es="Campaña hero producida por IA para recompensas semanales con storytelling cinematográfico.">AI-produced hero campaign for weekly rewards with cinematic storytelling.</span>
-</a><a class="card card--land reveal" data-client="wanama" data-end="10.5" data-start="7" data-type="content" data-video="assets/case-wanama.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+</button><button class="card card--land reveal" data-client="wanama" data-end="10.5" data-start="7" data-type="content" data-video="/assets/case-wanama.mp4" type="button">
 <span class="card-img"><img alt="Wild Spirit — Wanama" decoding="async" loading="lazy" src="/assets/work8.webp"/></span>
 <span class="card-row"><span class="card-title">Wild Spirit</span></span>
 <span class="card-meta" data-en="Client: Wanama" data-es="Cliente: Wanama">Client: Wanama</span>
 <span class="card-desc" data-en="Hybrid fashion photoshoot: real models shot on location, fused with generative AI environments." data-es="Photoshoot de moda híbrido: modelos reales fotografiados en locaciones físicas, fusionados con entornos generados por IA generativa.">Hybrid fashion photoshoot: real models shot on location, fused with generative AI environments.</span>
-</a><a class="card card--land reveal" data-client="dreamco" data-end="48" data-start="45" data-type="content" data-video="assets/case-magistral.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+</button><button class="card card--land reveal" data-client="dreamco" data-end="48" data-start="45" data-type="content" data-video="/assets/case-magistral.mp4" type="button">
 <span class="card-img"><img alt="Magistral — DreamCo" decoding="async" loading="lazy" src="/assets/work7.webp"/></span>
 <span class="card-row"><span class="card-title">Magistral</span></span>
 <span class="card-meta" data-en="Client: DreamCo" data-es="Cliente: DreamCo">Client: DreamCo</span>
 <span class="card-desc" data-en="Campaign 100% produced with AI, with cinematic photorealism. End-to-end AI workflow." data-es="Campaña 100% producida por IA con fotorrealismo cinematográfico. Workflow end-to-end de IA.">Campaign 100% produced with AI, with cinematic photorealism. End-to-end AI workflow.</span>
-</a><a class="card card--land reveal" data-client="mcdonalds" data-end="6.5" data-start="1.8" data-type="ooh" data-video="assets/case-mcdonalds.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+</button><button class="card card--land reveal" data-client="mcdonalds" data-end="6.5" data-start="1.8" data-type="ooh" data-video="/assets/case-mcdonalds.mp4" type="button">
 <span class="card-img"><img alt="3D Billboards — McDonald's" decoding="async" loading="lazy" src="/assets/work1.webp"/></span>
 <span class="card-row"><span class="card-title">3D Billboards</span></span>
 <span class="card-meta" data-en="Client: McDonald's" data-es="Cliente: McDonald's">Client: McDonald's</span>
 <span class="card-desc" data-en="Immersive anamorphic 3D own media on LATAM's largest screen." data-es="Own media 3D anamórfica inmersiva en la pantalla más grande de LATAM.">Immersive anamorphic 3D own media on LATAM's largest screen.</span>
-</a><a class="card card--full reveal" data-client="mcdonalds" data-end="6.5" data-start="1.8" data-type="phygital" data-video="assets/case-roblox.mp4" href="https://planetlambo.com" rel="noopener" target="_blank">
+</button><button class="card card--full reveal" data-client="mcdonalds" data-end="6.5" data-start="1.8" data-type="phygital" data-video="/assets/case-roblox.mp4" type="button">
 <span class="card-img"><img alt="Menú Pixel — McDonald's" decoding="async" loading="lazy" src="/assets/work2.webp"/></span>
 <span class="card-row"><span class="card-title">Menú Pixel</span></span>
 <span class="card-meta" data-en="Client: McDonald's" data-es="Cliente: McDonald's">Client: McDonald's</span>
 <span class="card-desc" data-en="Virtual world in Roblox connecting digital gameplay with real menu items." data-es="Mundo virtual en Roblox conectando gameplay digital con items del menú real.">Virtual world in Roblox connecting digital gameplay with real menu items.</span>
-</a></div>
+</button></div>
 <div class="work-more">
 <button class="show-more" id="showMore" type="button">Ver más ↓</button>
 </div>
@@ -783,7 +783,7 @@ setTimeout(function () {
 <section class="contact" id="contact">
 <span class="eyebrow reveal" data-en="06 — Start" data-es="06 — Comenzar">06 — Start</span>
 <h2 class="contact-title knock reveal">
-<video class="knock-video" data-desk="assets/reel-lite.mp4" data-mob="assets/reel-mobile.mp4" data-offset="45.5" loop="" muted="" playsinline="" preload="none"></video>
+<video class="knock-video" data-desk="/assets/reel-lite.mp4" data-mob="/assets/reel-mobile.mp4" data-offset="45.5" loop="" muted="" playsinline="" preload="none"></video>
 <span class="knock-plate" data-en="Start a&lt;br&gt;project" data-es="Empezá un&lt;br/&gt;proyecto">Start a<br/>project</span>
 </h2>
 <p class="contact-sub reveal" data-en="A new model for brands that want to rethink how they operate, create and scale with artificial intelligence." data-es="Un nuevo modelo para marcas que quieren repensar cómo operan,

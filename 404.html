@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página no encontrada — Planetlambo</title>
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#fdf8f8">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png">
+<link rel="apple-touch-icon" href="/assets/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+  .e404 {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem clamp(1.4rem, 5vw, 4rem);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .e404-code {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin-bottom: 1.4rem;
+  }
+  .e404-code::before {
+    content: "";
+    width: 1.8rem;
+    height: 2px;
+    background: var(--lime);
+  }
+  .e404 h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+    text-wrap: balance;
+    margin: 0 0 1.6rem;
+  }
+  .e404 p {
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.55;
+    color: var(--secondary);
+    max-width: 56ch;
+    margin: 0 0 2.6rem;
+  }
+  .e404-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 2.5rem;
+    border-top: 1px solid var(--hairline);
+  }
+  .e404-links a {
+    display: block;
+    padding: 1.3rem 0;
+    color: var(--ink);
+    text-decoration: none;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    letter-spacing: -0.01em;
+    border-bottom: 1px solid var(--hairline);
+    flex: 1 1 240px;
+    transition: color 0.25s;
+  }
+  .e404-links a span {
+    display: block;
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0;
+    color: var(--secondary);
+    margin-top: 0.25rem;
+  }
+  .e404-links a:hover { color: var(--lime-dk, #7f9c17); }
+  .e404-links a:hover span { color: var(--ink); }
+  .e404-foot {
+    margin-top: 3rem;
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+</style>
+</head>
+<body>
+
+<main class="e404">
+  <span class="e404-code" lang="es">Error 404</span>
+
+  <h1 lang="es">Esta página no existe.</h1>
+  <p lang="es">Puede que el link esté viejo o que la dirección tenga un error de tipeo. Estos son los caminos que sí llevan a algún lado.</p>
+
+  <div class="e404-links">
+    <a href="/" hreflang="es-419">
+      Inicio
+      <span>El showreel y las campañas</span>
+    </a>
+    <a href="/productora-ia/" hreflang="es-419">
+      Productora de IA
+      <span>Qué producimos y cómo trabajamos</span>
+    </a>
+    <a href="/en/" hreflang="en" lang="en">
+      English
+      <span>Same site, in English</span>
+    </a>
+  </div>
+
+  <p class="e404-foot">Planetlambo · Tech Market Lab · Buenos Aires — São Paulo</p>
+</main>
+
+</body>
+</html>

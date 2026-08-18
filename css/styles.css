@@ -278,6 +278,11 @@ body.cinema-open .nav { opacity: 0; pointer-events: none; }
 .lang-btn {
   background: none;
   border: none;
+  /* ahora son <a> y no <button>: navegan a la URL del otro idioma, asi que
+     Googlebot puede seguirlos. Faltaba quitarles el subrayado. */
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
   padding: 0.2em 0.1em;
   font-family: var(--body);
   font-size: 11px;
@@ -817,6 +822,32 @@ body.cinema-open .nav { opacity: 0; pointer-events: none; }
   border: 1px solid var(--line-strong);
   background: var(--bg);
   transition: background 0.3s;
+  /* Las cards son <button>: abren el modal de caso, no navegan. Antes eran
+     <a> con un href placeholder al home. Normalizamos los estilos que el
+     navegador le pone por defecto a un boton. */
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.card:focus-visible,
+.show-all:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+}
+
+.show-all {
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
 }
 
 .card:hover { background: #f1edec; }

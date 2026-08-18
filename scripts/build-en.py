@@ -114,20 +114,43 @@ def swap_idiomas(soup):
 
 
 def absolutizar(html):
-    """assets/x.jpg -> /assets/x.jpg (desde /en/ la relativa se rompe)."""
-    def reemplazo(m):
-        attr, comilla, url = m.group(1), m.group(2), m.group(3)
-        if url.startswith(RELATIVAS):
-            return '{}={}/{}{}'.format(attr, comilla, url, comilla)
-        return m.group(0)
+    """assets/x.jpg -> /assets/x.jpg (desde /en/ la relativa se rompe).
 
-    return re.sub(r'\b(src|href|poster|data-src)=(")([^"]*)"', reemplazo, html)
+    Se matchea por el VALOR y no por una lista de atributos. Antes la lista
+    era src|href|poster|data-src, y se colaron data-desk, data-mob y
+    data-video: 18 rutas que daban 404 desde /en/, entre ellas el showreel
+    y el hover de las diez campanas. Con esto queda cubierto cualquier
+    atributo, presente o futuro, que apunte a un asset del sitio.
+    """
+    patron = r'\b([a-zA-Z][a-zA-Z0-9-]*)=(")((?:{})[^"]*)"'.format(
+        "|".join(re.escape(p) for p in RELATIVAS))
+    return re.sub(patron, lambda m: '{}={}/{}{}'.format(
+        m.group(1), m.group(2), m.group(3), m.group(2)), html)
 
 
 def reescribir_links(soup):
     for a in soup.find_all("a", href=True):
         if a["href"] in LINKS:
             a["href"] = LINKS[a["href"]]
+
+
+def marcar_idioma_activo(soup):
+    """En la pagina EN el activo es EN, no ES.
+
+    El estado viaja servido en el HTML y no calculado por JS: asi no
+    parpadea ni depende de que el script corra. Antes /en/ mostraba ES
+    subrayado como idioma vigente, en el header, con todo el contenido en
+    ingles debajo.
+    """
+    for a in soup.select(".lang-btn"):
+        es_en = a.get("data-setlang") == "en"
+        clases = [c for c in a.get("class", []) if c != "active"]
+        if es_en:
+            clases.append("active")
+            a["aria-current"] = "true"
+        else:
+            a.attrs.pop("aria-current", None)
+        a["class"] = clases
 
 
 def set_meta(soup, selector, attr, valor):
@@ -225,6 +248,7 @@ def main():
 
     reescribir_head(soup)
     reescribir_links(soup)
+    marcar_idioma_activo(soup)
     q = reescribir_jsonld(soup)
     print("  {} preguntas en el FAQPage".format(q))
 

@@ -91,29 +91,18 @@ if (reduceMotion || !document.documentElement.classList.contains("js")) {
   setTimeout(finishLoader, 6000);
 }
 
-/* ———— Language toggle — ES primary, EN secondary ———— */
+/* ———— Idioma — una sola fuente de verdad: la URL ————
 
-const setLang = (lang) => {
-  document.querySelectorAll("[data-en]").forEach((el) => {
-    if (!el.dataset.es) el.dataset.es = el.innerHTML;
-    el.innerHTML = lang === "en" ? el.dataset.en : el.dataset.es;
-  });
-  document.documentElement.lang = lang;
-  document.querySelectorAll(".lang-btn").forEach((b) => {
-    b.classList.toggle("active", b.dataset.setlang === lang);
-  });
-  try { localStorage.setItem("pl-lang", lang); } catch (e) {}
-  document.dispatchEvent(new CustomEvent("langchange"));
-};
+   Antes convivian dos sistemas. El idioma por URL (/ y /en/) y, encima, un
+   toggle por JS que reescribia el DOM y persistia la preferencia sin tocar
+   la URL. Consecuencia: quien tocaba EN una vez recibia despues contenido
+   en ingles en la URL espanola — con su canonical al espanol —, y al
+   compartir el link la otra persona lo abria en el idioma contrario.
 
-document.querySelectorAll(".lang-btn").forEach((b) => {
-  b.addEventListener("click", () => setLang(b.dataset.setlang));
-});
-
-try {
-  const saved = localStorage.getItem("pl-lang");
-  if (saved === "en") setLang("en");
-} catch (e) {}
+   Ahora el selector es un <a href> real: navega a la otra URL y listo. El
+   estado activo se sirve ya resuelto en el HTML de cada pagina, asi que no
+   hay parpadeo ni depende de JS. La preferencia del navegador la maneja el
+   script inline del <head>. */
 
 /* ———— Nav — transparent over the hero, solid after ———— */
 
@@ -281,6 +270,17 @@ showMore.addEventListener("click", () => {
     document.getElementById("work").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 });
+
+/* "Ver todas" del encabezado: antes era un <a> a una URL placeholder que
+   abria el home de nuevo en otra pestana. Ahora despliega la grilla, que es
+   lo que el texto promete. */
+const showAll = document.querySelector(".show-all");
+if (showAll) {
+  showAll.addEventListener("click", () => {
+    if (!expanded) { expanded = true; applyFilters(); }
+    document.getElementById("work").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
 
 document.addEventListener("langchange", showMoreLabel);
 applyFilters();
