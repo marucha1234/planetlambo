@@ -31,16 +31,22 @@ function verificar(descripcion, esperado, obtenido) {
 }
 
 /** Simula una peticion y describe que hizo el middleware. */
-async function pedir(ruta, accept, { mdDisponible = true } = {}) {
+async function pedir(ruta, accept, { mdDisponible = true, cuerpoFalso = null } = {}) {
   const original = globalThis.fetch;
-  globalThis.fetch = async (url) => {
+  const vistas = [];
+  globalThis.fetch = async (url, opciones) => {
     const u = String(url);
+    vistas.push({ url: u, headers: (opciones && opciones.headers) || {} });
     if (!mdDisponible) return new Response("no", { status: 404 });
+    if (cuerpoFalso !== null) {
+      return new Response(cuerpoFalso, { status: 200 });
+    }
     return new Response(`# Espejo de ${u}\n`, {
       status: 200,
       headers: { "content-type": "text/plain" },
     });
   };
+  globalThis.__vistas = vistas;
 
   const headers = accept === null ? {} : { accept };
   const req = new Request("https://www.planetlambo.com" + ruta, { headers });
@@ -175,6 +181,56 @@ console.log("\n\x1b[1mDegradacion\x1b[0m");
 {
   const r = await pedir("/", "text/markdown", { mdDisponible: false });
   verificar("si falta el espejo .md sirve el HTML en vez de fallar", "continua", r.accion);
+}
+
+{
+  // Detectado testeando contra un preview protegido: el fetch interno
+  // recibia la pagina de login de Vercel con status 200 y el middleware la
+  // servia rotulada como text/markdown.
+  const r = await pedir("/", "text/markdown", {
+    cuerpoFalso: "<!DOCTYPE html><html><head><title>Login</title></head></html>",
+  });
+  verificar("si el origen devuelve HTML no lo sirve como markdown", "continua", r.accion);
+}
+
+{
+  const r = await pedir("/", "text/markdown", {
+    cuerpoFalso: "<html lang=\"en\">pagina intermedia</html>",
+  });
+  verificar("tambien detecta HTML sin doctype", "continua", r.accion);
+}
+
+{
+  const r = await pedir("/", "text/markdown", {
+    cuerpoFalso: "# Un titulo\n\nProsa legitima con <em>algo</em> de html inline.\n",
+  });
+  verificar("markdown con html inline si se sirve", "responde", r.accion);
+}
+
+console.log("\n\x1b[1mCredenciales en el fetch interno\x1b[0m");
+
+{
+  const original = globalThis.fetch;
+  let capturado = null;
+  globalThis.fetch = async (url, opciones) => {
+    capturado = (opciones && opciones.headers) || {};
+    return new Response("# ok\n", { status: 200 });
+  };
+  const req = new Request("https://www.planetlambo.com/", {
+    headers: {
+      accept: "text/markdown",
+      cookie: "sesion=abc",
+      "x-vercel-protection-bypass": "secreto",
+    },
+  });
+  await middleware(req);
+  globalThis.fetch = original;
+  verificar("reenvia la cookie al espejo", "sesion=abc", capturado.cookie);
+  verificar(
+    "reenvia el bypass de proteccion",
+    "secreto",
+    capturado["x-vercel-protection-bypass"]
+  );
 }
 
 console.log(`\n\x1b[1mResultado\x1b[0m\n  ${ok} correctas · ${fallo} fallidas\n`);

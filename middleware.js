@@ -175,17 +175,34 @@ export default async function middleware(request) {
   }
 
   const destino = new URL(ESPEJOS[ruta], url.origin);
-  const md = await fetch(destino, {
-    headers: { accept: "text/plain, */*" },
-    redirect: "follow",
-  });
+
+  // Se reenvian las credenciales de la peticion original. En los deployments
+  // de preview, protegidos por Vercel, sin esto el fetch interno recibe la
+  // pagina de login en vez del archivo.
+  const cabeceras = { accept: "text/plain, */*" };
+  const cookie = request.headers.get("cookie");
+  if (cookie) cabeceras.cookie = cookie;
+  const bypass = request.headers.get("x-vercel-protection-bypass");
+  if (bypass) cabeceras["x-vercel-protection-bypass"] = bypass;
+
+  const md = await fetch(destino, { headers: cabeceras, redirect: "follow" });
 
   if (!md.ok) {
     // Si el espejo falta, es preferible el HTML a un error.
     return;
   }
 
-  return new Response(md.body, {
+  // No alcanza con que responda 200: hay que confirmar que lo que volvio es
+  // el espejo y no una pagina intermedia — un login, un error, una
+  // interstitial de la CDN. Servir HTML rotulado como text/markdown le
+  // entrega basura al agente, que es peor que devolverle el HTML honesto.
+  const texto = await md.text();
+  const arranque = texto.slice(0, 400).trimStart().toLowerCase();
+  if (arranque.startsWith("<!doctype") || arranque.startsWith("<html")) {
+    return;
+  }
+
+  return new Response(texto, {
     status: 200,
     headers: {
       "content-type": "text/markdown; charset=utf-8",

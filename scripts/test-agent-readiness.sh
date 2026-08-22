@@ -18,6 +18,15 @@
 set -uo pipefail
 
 BASE="${1:-https://www.planetlambo.com}"
+
+# Los previews de Vercel estan detras de Deployment Protection. Con el
+# secreto de bypass en PL_BYPASS los tests pueden correr contra un preview
+# antes de tocar produccion. Sin la variable, curl se comporta igual que
+# siempre y esto no afecta al uso normal contra el sitio publico.
+CURL=(curl -s)
+if [ -n "${PL_BYPASS:-}" ]; then
+  CURL=("${CURL[@]}" -H "x-vercel-protection-bypass: ${PL_BYPASS}")
+fi
 OK=0
 FALLO=0
 
@@ -38,64 +47,64 @@ echo "Verificando $BASE"
 # ---------------------------------------------------------------- 1. 404 ----
 titulo "1 · 404 para agentes"
 
-COD=$(curl -s -o /dev/null -w "%{http_code}" -L "$BASE/ruta-que-no-existe-jamas")
+COD=$("${CURL[@]}" -o /dev/null -w "%{http_code}" -L "$BASE/ruta-que-no-existe-jamas")
 comparar "ruta inexistente devuelve 404" "404" "$COD"
 
-COD_ASSET=$(curl -s -o /dev/null -w "%{http_code}" "$BASE/assets/no-existe-esto.jpg")
+COD_ASSET=$("${CURL[@]}" -o /dev/null -w "%{http_code}" "$BASE/assets/no-existe-esto.jpg")
 comparar "asset inexistente devuelve 404" "404" "$COD_ASSET"
 
-MD404=$(curl -s -L -H "Accept: text/markdown" "$BASE/ruta-que-no-existe-jamas")
-CT404=$(curl -s -o /dev/null -L -w "%{content_type}" -H "Accept: text/markdown" "$BASE/ruta-que-no-existe-jamas")
+MD404=$("${CURL[@]}" -L -H "Accept: text/markdown" "$BASE/ruta-que-no-existe-jamas")
+CT404=$("${CURL[@]}" -o /dev/null -L -w "%{content_type}" -H "Accept: text/markdown" "$BASE/ruta-que-no-existe-jamas")
 contiene "404 en Markdown declara text/markdown" "text/markdown" "$CT404"
 contiene "404 en Markdown enlaza el sitemap" "sitemap.xml" "$MD404"
 contiene "404 en Markdown enlaza llms.txt" "llms.txt" "$MD404"
 contiene "404 en Markdown ofrece rutas de recuperacion" "/productora-ia/" "$MD404"
 
-COD_MD404=$(curl -s -o /dev/null -L -w "%{http_code}" -H "Accept: text/markdown" "$BASE/ruta-que-no-existe-jamas")
+COD_MD404=$("${CURL[@]}" -o /dev/null -L -w "%{http_code}" -H "Accept: text/markdown" "$BASE/ruta-que-no-existe-jamas")
 comparar "404 en Markdown mantiene el status 404" "404" "$COD_MD404"
 
 # la pagina 404 de navegador conserva su diseño
-HTML404=$(curl -s -L "$BASE/ruta-que-no-existe-jamas")
+HTML404=$("${CURL[@]}" -L "$BASE/ruta-que-no-existe-jamas")
 contiene "404 HTML conserva la marca" "Planetlambo" "$HTML404"
 
 # ------------------------------------------------- 2. acceptmarkdown.com ----
 titulo "2 · Negociacion de contenido (acceptmarkdown.com)"
 
 for RUTA in "/" "/en/" "/productora-ia/" "/en/ai-production-company/" "/about/" "/contact/" "/privacy/"; do
-  CT=$(curl -s -o /dev/null -w "%{content_type}" -H "Accept: text/markdown" "$BASE$RUTA")
+  CT=$("${CURL[@]}" -o /dev/null -w "%{content_type}" -H "Accept: text/markdown" "$BASE$RUTA")
   contiene "$RUTA sirve markdown con Accept: text/markdown" "text/markdown" "$CT"
 done
 
-VARY=$(curl -sI -H "Accept: text/markdown" "$BASE/" | grep -i '^vary:' | tr -d '\r')
+VARY=$("${CURL[@]}" -I -H "Accept: text/markdown" "$BASE/" | grep -i '^vary:' | tr -d '\r')
 contiene "Vary incluye Accept en la respuesta markdown" "accept" "$VARY"
 
-VARY_HTML=$(curl -sI "$BASE/" | grep -i '^vary:' | tr -d '\r')
+VARY_HTML=$("${CURL[@]}" -I "$BASE/" | grep -i '^vary:' | tr -d '\r')
 contiene "Vary incluye Accept en la respuesta HTML" "accept" "$VARY_HTML"
 
-CT_HTML=$(curl -s -o /dev/null -w "%{content_type}" -H "Accept: text/html" "$BASE/")
+CT_HTML=$("${CURL[@]}" -o /dev/null -w "%{content_type}" -H "Accept: text/html" "$BASE/")
 contiene "Accept: text/html sigue sirviendo HTML" "text/html" "$CT_HTML"
 
-CT_NAV=$(curl -s -o /dev/null -w "%{content_type}" \
+CT_NAV=$("${CURL[@]}" -o /dev/null -w "%{content_type}" \
   -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" "$BASE/")
 contiene "Accept de navegador real sirve HTML" "text/html" "$CT_NAV"
 
-CT_CURL=$(curl -s -o /dev/null -w "%{content_type}" -H "Accept: */*" "$BASE/")
+CT_CURL=$("${CURL[@]}" -o /dev/null -w "%{content_type}" -H "Accept: */*" "$BASE/")
 contiene "Accept: */* sirve HTML por defecto" "text/html" "$CT_CURL"
 
 # q-values en ambas direcciones
-CT_Q1=$(curl -s -o /dev/null -w "%{content_type}" \
+CT_Q1=$("${CURL[@]}" -o /dev/null -w "%{content_type}" \
   -H "Accept: text/html;q=0.8, text/markdown;q=0.9" "$BASE/")
 contiene "q-values: markdown 0.9 > html 0.8 sirve markdown" "text/markdown" "$CT_Q1"
 
-CT_Q2=$(curl -s -o /dev/null -w "%{content_type}" \
+CT_Q2=$("${CURL[@]}" -o /dev/null -w "%{content_type}" \
   -H "Accept: text/html;q=0.9, text/markdown;q=0.8" "$BASE/")
 contiene "q-values: html 0.9 > markdown 0.8 sirve html" "text/html" "$CT_Q2"
 
-COD406=$(curl -s -o /dev/null -w "%{http_code}" -H "Accept: application/pdf" "$BASE/")
+COD406=$("${CURL[@]}" -o /dev/null -w "%{http_code}" -H "Accept: application/pdf" "$BASE/")
 comparar "tipo no soportado devuelve 406" "406" "$COD406"
 
 # el markdown es prosa, no HTML disfrazado
-MD=$(curl -s -H "Accept: text/markdown" "$BASE/productora-ia/")
+MD=$("${CURL[@]}" -H "Accept: text/markdown" "$BASE/productora-ia/")
 if printf '%s' "$MD" | grep -q "<script"; then
   rojo "el markdown no debe contener <script>"
 else
@@ -106,7 +115,7 @@ contiene "el markdown conserva el encabezado principal" "# Productora de IA" "$M
 # --------------------------------------------------- 3. instruccion agente ---
 titulo "3 · Instruccion para agentes"
 
-LLMS=$(curl -s "$BASE/llms.txt")
+LLMS=$("${CURL[@]}" "$BASE/llms.txt")
 contiene "llms.txt trae la seccion cuando usarnos (ES)" "Cuándo recurrir a Planetlambo" "$LLMS"
 contiene "llms.txt trae la seccion cuando usarnos (EN)" "When to use Planetlambo" "$LLMS"
 contiene "llms.txt dice cuando NO somos la respuesta" "No somos la respuesta correcta" "$LLMS"
@@ -117,9 +126,9 @@ contiene "llms.txt documenta la negociacion markdown" "Accept: text/markdown" "$
 titulo "4 · Paginas de confianza"
 
 for P in about contact privacy; do
-  COD=$(curl -s -o /dev/null -w "%{http_code}" "$BASE/$P/")
+  COD=$("${CURL[@]}" -o /dev/null -w "%{http_code}" "$BASE/$P/")
   comparar "/$P/ responde 200" "200" "$COD"
-  LARGO=$(curl -s "$BASE/$P/" \
+  LARGO=$("${CURL[@]}" "$BASE/$P/" \
     | python3 -c "import sys,re;h=sys.stdin.read();b=re.sub(r'<(script|style)[^>]*>.*?</\1>','',h,flags=re.S|re.I);t=re.sub(r'<[^>]+>',' ',b);print(len(' '.join(t.split())))")
   if [ "$LARGO" -ge 500 ]; then
     verde "/$P/ tiene $LARGO caracteres de contenido (minimo 500)"
@@ -128,7 +137,7 @@ for P in about contact privacy; do
   fi
 done
 
-SITEMAP=$(curl -s "$BASE/sitemap.xml")
+SITEMAP=$("${CURL[@]}" "$BASE/sitemap.xml")
 for P in about contact privacy; do
   contiene "/$P/ figura en el sitemap" "/$P/" "$SITEMAP"
 done
@@ -136,7 +145,7 @@ done
 # --------------------------------------------- 5. Organization schema --------
 titulo "5 · Organization schema"
 
-curl -s "$BASE/" | python3 -c "
+"${CURL[@]}" "$BASE/" | python3 -c "
 import sys,re,json,html
 src=sys.stdin.read()
 bloques=re.findall(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>',src,re.S|re.I)
@@ -165,19 +174,19 @@ rm -f /tmp/_org.txt
 titulo "Regresiones · lo que ya funcionaba"
 
 for RUTA in "/" "/en/" "/productora-ia/" "/en/ai-production-company/" "/llms.txt" "/sitemap.xml" "/robots.txt"; do
-  COD=$(curl -s -o /dev/null -w "%{http_code}" "$BASE$RUTA")
+  COD=$("${CURL[@]}" -o /dev/null -w "%{http_code}" "$BASE$RUTA")
   comparar "$RUTA responde 200" "200" "$COD"
 done
 
-HL=$(curl -s "$BASE/" | grep -o '<link[^>]*hreflang[^>]*>' | grep -c . || true)
+HL=$("${CURL[@]}" "$BASE/" | grep -o '<link[^>]*hreflang[^>]*>' | grep -c . || true)
 comparar "la home mantiene 3 hreflang" "3" "$HL"
 
 for V in reel-lite.mp4 case-mostaza.mp4 poster.jpg; do
-  COD=$(curl -s -o /dev/null -w "%{http_code}" "$BASE/assets/$V")
+  COD=$("${CURL[@]}" -o /dev/null -w "%{http_code}" "$BASE/assets/$V")
   comparar "assets/$V responde 200" "200" "$COD"
 done
 
-REL=$(curl -s "$BASE/en/" | grep -cE '(data-video|data-desk|data-mob|src)="(assets|css|js)/' || true)
+REL=$("${CURL[@]}" "$BASE/en/" | grep -cE '(data-video|data-desk|data-mob|src)="(assets|css|js)/' || true)
 comparar "la pagina EN no tiene rutas relativas" "0" "$REL"
 
 # ------------------------------------------------------------- resumen -------
