@@ -1,0 +1,6 @@
+{
+  "name": "planetlambo",
+  "private": true,
+  "type": "module",
+  "description": "Sitio estático de Planetlambo. No hay build: los archivos se sirven tal cual. Este package.json existe sólo porque middleware.js usa sintaxis de módulo ES y Vercel exige declararlo cuando el proyecto no usa framework."
+}
