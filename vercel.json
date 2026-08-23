@@ -10,6 +10,41 @@
       "has": [{ "type": "host", "value": "planetlambo.com" }],
       "destination": "https://www.planetlambo.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/projects",
+      "destination": "/productora-ia/",
+      "permanent": true
+    },
+    {
+      "source": "/projects/:slug*",
+      "destination": "/productora-ia/",
+      "permanent": true
+    },
+    {
+      "source": "/en/projects",
+      "destination": "/en/ai-production-company/",
+      "permanent": true
+    },
+    {
+      "source": "/en/projects/:slug*",
+      "destination": "/en/ai-production-company/",
+      "permanent": true
+    },
+    {
+      "source": "/work",
+      "destination": "/#work",
+      "permanent": true
+    },
+    {
+      "source": "/studio",
+      "destination": "/#studio",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/#capabilities",
+      "permanent": true
     }
   ],
 
