@@ -17,7 +17,7 @@
       "permanent": true
     },
     {
-      "source": "/projects/:slug*",
+      "source": "/projects/:path(.*)",
       "destination": "/productora-ia/",
       "permanent": true
     },
@@ -27,7 +27,7 @@
       "permanent": true
     },
     {
-      "source": "/en/projects/:slug*",
+      "source": "/en/projects/:path(.*)",
       "destination": "/en/ai-production-company/",
       "permanent": true
     },
@@ -37,12 +37,27 @@
       "permanent": true
     },
     {
+      "source": "/work/:path(.*)",
+      "destination": "/#work",
+      "permanent": true
+    },
+    {
       "source": "/studio",
       "destination": "/#studio",
       "permanent": true
     },
     {
+      "source": "/studio/:path(.*)",
+      "destination": "/#studio",
+      "permanent": true
+    },
+    {
       "source": "/services",
+      "destination": "/#capabilities",
+      "permanent": true
+    },
+    {
+      "source": "/services/:path(.*)",
       "destination": "/#capabilities",
       "permanent": true
     }
