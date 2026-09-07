@@ -63,6 +63,17 @@
     }
   ],
 
+  "rewrites": [
+    {
+      "source": "/whatsnextia",
+      "destination": "https://whats-next-blue.vercel.app/whatsnextia"
+    },
+    {
+      "source": "/whatsnextia/:path*",
+      "destination": "https://whats-next-blue.vercel.app/whatsnextia/:path*"
+    }
+  ],
+
   "headers": [
     {
       "source": "/assets/(.*)",
