@@ -31,12 +31,21 @@ function verificar(descripcion, esperado, obtenido) {
 }
 
 /** Simula una peticion y describe que hizo el middleware. */
-async function pedir(ruta, accept, { mdDisponible = true, cuerpoFalso = null } = {}) {
+async function pedir(
+  ruta,
+  accept,
+  { mdDisponible = true, cuerpoFalso = null, rutaExiste = false } = {}
+) {
   const original = globalThis.fetch;
   const vistas = [];
   globalThis.fetch = async (url, opciones) => {
     const u = String(url);
-    vistas.push({ url: u, headers: (opciones && opciones.headers) || {} });
+    const metodo = (opciones && opciones.method) || "GET";
+    vistas.push({ url: u, metodo, headers: (opciones && opciones.headers) || {} });
+    // sonda de existencia sobre una ruta sin espejo
+    if (metodo === "HEAD") {
+      return new Response(null, { status: rutaExiste ? 200 : 404 });
+    }
     if (!mdDisponible) return new Response("no", { status: 404 });
     if (cuerpoFalso !== null) {
       return new Response(cuerpoFalso, { status: 200 });
@@ -176,6 +185,31 @@ for (const ruta of [
   verificar("sin barra final tambien resuelve (canonicaliza)", 200, r.status);
 }
 
+console.log("\n\x1b[1mRutas sin espejo que si existen\x1b[0m");
+
+{
+  // Regresion real: /whatsnextia/ es una app proxeada que no vive en este
+  // repo. Con la lista fija, un agente que pedia markdown recibia un 404
+  // diciendo que una seccion real de la marca no existia.
+  const r = await pedir("/whatsnextia/", "text/markdown", { rutaExiste: true });
+  verificar("ruta proxeada existente no devuelve 404", "continua", r.accion);
+}
+
+{
+  const r = await pedir("/seccion-futura/", "text/markdown", { rutaExiste: true });
+  verificar("cualquier pagina nueva tampoco se declara inexistente", "continua", r.accion);
+}
+
+{
+  const r = await pedir("/no-existe-de-verdad/", "text/markdown", { rutaExiste: false });
+  verificar("una ruta realmente inexistente si devuelve 404", 404, r.status);
+}
+
+{
+  const r = await pedir("/whatsnextia/", "text/html", { rutaExiste: true });
+  verificar("en HTML no se sondea ni se interviene", "continua", r.accion);
+}
+
 console.log("\n\x1b[1mDegradacion\x1b[0m");
 
 {
@@ -205,6 +239,16 @@ console.log("\n\x1b[1mDegradacion\x1b[0m");
     cuerpoFalso: "# Un titulo\n\nProsa legitima con <em>algo</em> de html inline.\n",
   });
   verificar("markdown con html inline si se sirve", "responde", r.accion);
+}
+
+console.log("\n\x1b[1mAnti-recursion\x1b[0m");
+
+{
+  const req = new Request("https://www.planetlambo.com/", {
+    headers: { accept: "text/markdown", "x-pl-interno": "1" },
+  });
+  const res = await middleware(req);
+  verificar("una peticion interna no reentra al middleware", undefined, res);
 }
 
 console.log("\n\x1b[1mCredenciales en el fetch interno\x1b[0m");

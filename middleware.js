@@ -110,6 +110,21 @@ function conBarra(ruta) {
   return ruta;
 }
 
+/**
+ * Cabeceras para las peticiones que el middleware hace al propio origen.
+ * Reenvia las credenciales de la peticion original —sin ellas, en un
+ * deployment de preview protegido el fetch interno recibe la pagina de
+ * login— y marca la peticion para no reentrar al middleware.
+ */
+function cabecerasInternas(request, extra) {
+  const h = Object.assign({ "x-pl-interno": "1" }, extra || {});
+  const cookie = request.headers.get("cookie");
+  if (cookie) h.cookie = cookie;
+  const bypass = request.headers.get("x-vercel-protection-bypass");
+  if (bypass) h["x-vercel-protection-bypass"] = bypass;
+  return h;
+}
+
 function respuesta406(vary) {
   return new Response(
     "406 Not Acceptable\n\n" +
@@ -127,6 +142,10 @@ function respuesta406(vary) {
 }
 
 export default async function middleware(request) {
+  // Las peticiones que origina este mismo middleware no vuelven a entrar:
+  // sin esta guarda, la sonda de existencia se llamaria a si misma.
+  if (request.headers.get("x-pl-interno")) return;
+
   const url = new URL(request.url);
   const ruta = conBarra(url.pathname);
   const accept = request.headers.get("accept") || "";
@@ -147,24 +166,49 @@ export default async function middleware(request) {
 
   const quiereMarkdown = qMarkdown > qHtml;
 
-  // ---- Ruta inexistente: 404 con cuerpo util ------------------------------
+  // ---- Ruta fuera de la lista de espejos ----------------------------------
   if (!esPagina && !OTRAS_RUTAS.has(url.pathname)) {
     // `/about` sin barra todavia no es 404: le toca el redirect a `/about/`.
     if (Object.prototype.hasOwnProperty.call(ESPEJOS, ruta)) return;
 
-    if (quiereMarkdown) {
-      return new Response(CUERPO_404, {
-        status: 404,
-        headers: {
-          "content-type": "text/markdown; charset=utf-8",
-          vary: VARY,
-          "cache-control": "public, max-age=0, must-revalidate",
-          "x-content-type-options": "nosniff",
-        },
+    // Para navegadores no nos metemos: si la ruta existe la sirve el origen,
+    // y si no, aparece el 404.html con la marca.
+    if (!quiereMarkdown) return;
+
+    // No estar en ESPEJOS no significa no existir. El dominio sirve tambien
+    // aplicaciones proxeadas que no viven en este repo —hoy /whatsnextia/— y
+    // manana cualquier pagina nueva. Antes de declarar 404 hay que
+    // preguntarle al origen, o le estariamos diciendo a un agente que una
+    // seccion real de la marca no existe.
+    let existe = false;
+    try {
+      const sonda = await fetch(new URL(url.pathname, url.origin), {
+        method: "HEAD",
+        headers: cabecerasInternas(request, { accept: "text/html,*/*" }),
+        redirect: "manual",
       });
+      // 2xx es que existe; 3xx tambien, porque hay algo a donde ir.
+      existe = sonda.status < 400;
+    } catch (e) {
+      // Si la sonda falla, es preferible no afirmar que la ruta no existe.
+      existe = true;
     }
-    // Para navegadores sigue el 404.html de siempre, con su diseño.
-    return;
+
+    if (existe) {
+      // Existe pero no tiene espejo .md: se entrega el HTML, que es honesto,
+      // en vez de un 404 falso o de HTML rotulado como markdown.
+      return;
+    }
+
+    return new Response(CUERPO_404, {
+      status: 404,
+      headers: {
+        "content-type": "text/markdown; charset=utf-8",
+        vary: VARY,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-content-type-options": "nosniff",
+      },
+    });
   }
 
   // ---- Pagina conocida ----------------------------------------------------
@@ -179,13 +223,10 @@ export default async function middleware(request) {
   // Se reenvian las credenciales de la peticion original. En los deployments
   // de preview, protegidos por Vercel, sin esto el fetch interno recibe la
   // pagina de login en vez del archivo.
-  const cabeceras = { accept: "text/plain, */*" };
-  const cookie = request.headers.get("cookie");
-  if (cookie) cabeceras.cookie = cookie;
-  const bypass = request.headers.get("x-vercel-protection-bypass");
-  if (bypass) cabeceras["x-vercel-protection-bypass"] = bypass;
-
-  const md = await fetch(destino, { headers: cabeceras, redirect: "follow" });
+  const md = await fetch(destino, {
+    headers: cabecerasInternas(request, { accept: "text/plain, */*" }),
+    redirect: "follow",
+  });
 
   if (!md.ok) {
     // Si el espejo falta, es preferible el HTML a un error.
