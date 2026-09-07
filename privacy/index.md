@@ -48,5 +48,10 @@ Podés pedirnos acceso, corrección o eliminación de cualquier dato personal qu
 Si esta política cambia, se actualiza la fecha del primer párrafo. Los cambios de fondo se anuncian en la página de inicio.
 ---
 
+Herramienta gratuita de Planetlambo — What's Next: señales de
+tendencias globales convertidas en oportunidades concretas, con
+score. Se actualiza a diario y no pide registro.
+https://www.planetlambo.com/whatsnextia/
+
 Mapa del sitio: https://www.planetlambo.com/sitemap.xml
 Resumen para modelos: https://www.planetlambo.com/llms.txt

@@ -123,6 +123,30 @@ LINKS = {
     "/productora-ia/": "/en/ai-production-company/",
 }
 
+# El nav y la grilla de trabajos se declaran ademas como ItemList. Sin
+# traducirlos, la pagina inglesa publicaba nodos con los nombres en espanol y,
+# peor, con el mismo @id que los de la home ES: dos paginas afirmando cosas
+# distintas sobre un mismo identificador. En un grafo fusionado eso es un
+# conflicto, y ademas contradice el nav que el visitante ve.
+NAV = {
+    "Navegación principal": "Main navigation",
+    "Showreel": "Showreel",
+    "Capacidades": "Capabilities",
+    "Trabajos": "Work",
+    "Nuestro Lab": "Our Lab",
+    "Trends": "Trends",
+    "Productora de IA": "AI Production Company",
+    "Sobre Planetlambo": "About Planetlambo",
+    "Contacto": "Contact",
+}
+
+NAV_DESCRIPCIONES = {
+    "Trends": "What's Next \u2014 global trend signals turned into scored "
+              "opportunities, free and updated daily",
+}
+
+TRABAJOS_NOMBRE = "Selected Work by Planetlambo"
+
 # rutas relativas que hay que absolutizar
 RELATIVAS = ("assets/", "css/", "js/")
 
@@ -237,6 +261,21 @@ def faq_desde_dom(soup):
     return preguntas
 
 
+def url_en(url):
+    """La variante inglesa de una URL del nav, cuando existe.
+
+    Las paginas de confianza (/about/, /contact/, /privacy/) y la herramienta
+    de tendencias solo existen en espanol: ahi la URL se deja como esta, que es
+    lo honesto, aunque la etiqueta del nav vaya en ingles.
+    """
+    ruta = url[len(SITIO):] if url.startswith(SITIO) else url
+    if ruta in LINKS:
+        return SITIO + LINKS[ruta]
+    if ruta.startswith("/#"):
+        return SITIO + "/en/" + ruta[1:]
+    return SITIO + ruta
+
+
 def reescribir_jsonld(soup):
     bloque = soup.select_one('script[type="application/ld+json"]')
     if not bloque:
@@ -261,6 +300,20 @@ def reescribir_jsonld(soup):
             nodo["name"] = WEBPAGE_NAME
             nodo["description"] = WEBPAGE_DESCRIPTION
             nodo["inLanguage"] = "en"
+        elif tipo == "ItemList" and nodo.get("@id", "").endswith("/#nav"):
+            nodo["@id"] = SITIO + "/en/#nav"
+            nodo["name"] = NAV.get(nodo.get("name"), nodo.get("name"))
+            for item in nodo.get("itemListElement", []):
+                nombre = item.get("name")
+                if nombre in NAV:
+                    item["name"] = NAV[nombre]
+                if item.get("url"):
+                    item["url"] = url_en(item["url"])
+                if nombre in NAV_DESCRIPCIONES:
+                    item["description"] = NAV_DESCRIPCIONES[nombre]
+        elif tipo == "ItemList" and nodo.get("@id", "").endswith("/#work"):
+            nodo["@id"] = SITIO + "/en/#work"
+            nodo["name"] = TRABAJOS_NOMBRE
         elif tipo == "FAQPage":
             nodo["@id"] = SITIO + "/en/#faq"
             if faq:
