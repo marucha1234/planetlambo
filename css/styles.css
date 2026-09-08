@@ -104,6 +104,15 @@ mark {
 
 .js #loader.done { transform: translateY(-100%); visibility: hidden; }
 
+/* La intro es la entrada al sitio, no un peaje en cada navegacion. Quien ya
+   la vio en esta sesion —o vuelve desde una pagina interna, como la
+   herramienta de tendencias— entra directo al contenido. Se resuelve por
+   clase en <html> y no por JS para que no se vea ni un fotograma de la
+   cortina mientras carga el script. */
+.js.sin-intro #loader { display: none; }
+.js.sin-intro body.loading { overflow: visible; }
+.js.sin-intro .rise { opacity: 1; transform: none; transition: none; }
+
 .js body.loading { overflow: hidden; }
 
 /* The raw <video> stays invisible: iOS can't blend over hardware video

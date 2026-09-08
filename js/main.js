@@ -66,6 +66,8 @@ requestAnimationFrame(paintLoader);
 
 const finishLoader = () => {
   if (document.body.classList.contains("loaded")) return;
+  // Queda anotado para el resto de la sesion: la intro ya se vio.
+  try { sessionStorage.setItem("pl-intro", "1"); } catch (e) {}
   document.body.classList.add("loaded");
   document.body.classList.remove("loading");
   loader.classList.add("done");
@@ -73,7 +75,9 @@ const finishLoader = () => {
   setTimeout(() => { loaderVideo.pause(); loaderVideo.removeAttribute("src"); loaderVideo.load(); }, 1100);
 };
 
-if (reduceMotion || !document.documentElement.classList.contains("js")) {
+const introYaVista = document.documentElement.classList.contains("sin-intro");
+
+if (reduceMotion || introYaVista || !document.documentElement.classList.contains("js")) {
   finishLoader();
 } else {
   let pct = 0;

@@ -5,6 +5,19 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <script>
+/* La intro solo corre en la primera entrada de la sesion. Va aca arriba,
+   antes de pintar, porque decidirlo desde main.js ya seria tarde: se veria
+   la cortina un instante antes de desaparecer. */
+(function () {
+  try {
+    if (sessionStorage.getItem("pl-intro")) {
+      document.documentElement.classList.add("sin-intro");
+    }
+  } catch (e) {}
+})();
+</script>
+
+<script>
 /* Idioma por defecto segun la preferencia del navegador.
    Va inline y arriba de todo para redirigir antes de pintar: un redirect
    despues del render produce un parpadeo del idioma equivocado.
