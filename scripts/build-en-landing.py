@@ -257,6 +257,8 @@ def reescribir_head(soup):
         ('meta[property="og:title"]', "content", OG_TITLE),
         ('meta[property="og:description"]', "content", OG_DESCRIPTION),
         ('meta[property="og:url"]', "content", URL_EN),
+        ('meta[property="og:image:alt"]', "content",
+         "Planetlambo — Showreel 2026, AI advertising production"),
         ('meta[property="og:locale"]', "content", "en_US"),
         ('meta[name="twitter:title"]', "content", OG_TITLE),
         ('meta[name="twitter:description"]', "content", TW_DESCRIPTION),
