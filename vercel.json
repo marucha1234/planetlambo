@@ -75,21 +75,7 @@
       "permanent": true
     }
   ],
-  "rewrites": [
-    {
-      "source": "/whatsnextia/",
-      "destination": "https://whats-next-blue.vercel.app/whatsnextia/"
-    },
-    {
-      "source": "/whatsnextia/:path*/",
-      "destination": "https://whats-next-blue.vercel.app/whatsnextia/:path*/"
-    },
-    {
-      "source": "/whatsnextia/:path*",
-      "destination": "https://whats-next-blue.vercel.app/whatsnextia/:path*"
-    }
-  ],
-  "headers": [
+ "headers": [
     {
       "source": "/assets/(.*)",
       "headers": [
