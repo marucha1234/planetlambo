@@ -28,7 +28,8 @@
    2. Solo actua en la primera visita. Si el usuario ya eligio idioma, su
       eleccion manda sobre la del navegador.
    3. Si el navegador no pide ni ES ni EN, no hace nada: queda el
-      x-default, que es el espanol. */
+      x-default, que es el espanol.
+   4. Nunca contradice un clic hecho dentro del sitio (ver abajo). */
 (function () {
   var BOTS = /bot|crawl|spider|slurp|gptbot|claudebot|perplexity|bingpreview|facebookexternalhit|embedly|slackbot|twitterbot|whatsapp|telegram|headless|lighthouse/i;
   try { if (BOTS.test(navigator.userAgent)) return; } catch (e) { return; }
@@ -52,6 +53,18 @@
   }, true);
 
   try { if (localStorage.getItem("pl-lang")) return; } catch (e) { return; }
+
+  /* 4. Nunca contradecir un clic. Si se llega desde una pagina de este mismo
+     sitio, la persona eligio esa URL con el selector: no se rebota, haya o
+     no preferencia guardada. Sin esto, cualquier cosa que impida persistir
+     la eleccion —modo privado, storage bloqueado, "abrir en pestana nueva"
+     desde iOS, que no dispara click— convertia el selector en un boton que
+     parece no hacer nada. La regla del idioma por defecto queda para lo que
+     era: la primera entrada desde afuera. */
+  try {
+    var ref = document.referrer;
+    if (ref && ref.indexOf(location.origin + "/") === 0) return;
+  } catch (e) {}
 
   var path = location.pathname.replace(/index\.html$/, "");
   if (path.charAt(path.length - 1) !== "/") path += "/";
@@ -676,9 +689,9 @@ setTimeout(function () {
 <a data-en="Our Lab" href="#studio">Nuestro Lab</a>
 </nav>
 <span class="nav-lang">
-<a aria-current="true" class="lang-btn active" data-setlang="es" href="/" hreflang="es-419" lang="es">ES</a>
+<a aria-current="true" class="lang-btn active" href="/" hreflang="es-419" lang="es">ES</a>
 <i>/</i>
-<a class="lang-btn" data-setlang="en" href="/en/" hreflang="en" lang="en">EN</a>
+<a class="lang-btn" href="/en/" hreflang="en" lang="en">EN</a>
 </span>
 <a class="nav-cta" data-en="Contact" href="https://calendly.com/marinaplanetlambo/meeting-with-marina" rel="noopener" target="_blank">Contacto</a>
 <button aria-expanded="false" aria-label="Menú" class="nav-burger" id="navBurger" type="button">
