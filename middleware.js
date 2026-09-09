@@ -175,9 +175,10 @@ export default async function middleware(request) {
     // y si no, aparece el 404.html con la marca.
     if (!quiereMarkdown) return;
 
-    // No estar en ESPEJOS no significa no existir. El dominio sirve tambien
-    // aplicaciones proxeadas que no viven en este repo —hoy /whatsnextia/— y
-    // manana cualquier pagina nueva. Antes de declarar 404 hay que
+    // No estar en ESPEJOS no significa no existir. El dominio puede servir
+    // aplicaciones proxeadas que no viven en este repo —lo hizo un tiempo con
+    // una herramienta bajo /whatsnextia/— y manana cualquier pagina nueva.
+    // Antes de declarar 404 hay que
     // preguntarle al origen, o le estariamos diciendo a un agente que una
     // seccion real de la marca no existe.
     let existe = false;
