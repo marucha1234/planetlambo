@@ -128,9 +128,5 @@ We sign an NDA before any sensitive brief conversation and work with flows where
 ## Got a brief? Let's talk.
 ---
 
-Free tool by Planetlambo — What's Next: global trend signals turned
-into concrete, scored opportunities. Updated daily, no sign-up.
-https://www.planetlambo.com/whatsnextia/
-
-Sitemap: https://www.planetlambo.com/sitemap.xml
-Summary for models: https://www.planetlambo.com/llms.txt
+Mapa del sitio: https://www.planetlambo.com/sitemap.xml
+Resumen para modelos: https://www.planetlambo.com/llms.txt

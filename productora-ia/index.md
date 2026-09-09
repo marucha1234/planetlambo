@@ -128,10 +128,5 @@ Firmamos NDA antes de cualquier conversación de brief sensible y operamos con f
 ## ¿Tenés un brief? Hablemos.
 ---
 
-Herramienta gratuita de Planetlambo — What's Next: señales de
-tendencias globales convertidas en oportunidades concretas, con
-score. Se actualiza a diario y no pide registro.
-https://www.planetlambo.com/whatsnextia/
-
 Mapa del sitio: https://www.planetlambo.com/sitemap.xml
 Resumen para modelos: https://www.planetlambo.com/llms.txt

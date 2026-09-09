@@ -134,16 +134,12 @@ NAV = {
     "Capacidades": "Capabilities",
     "Trabajos": "Work",
     "Nuestro Lab": "Our Lab",
-    "Trends": "Trends",
     "Productora de IA": "AI Production Company",
     "Sobre Planetlambo": "About Planetlambo",
     "Contacto": "Contact",
 }
 
-NAV_DESCRIPCIONES = {
-    "Trends": "What's Next \u2014 global trend signals turned into scored "
-              "opportunities, free and updated daily",
-}
+NAV_DESCRIPCIONES = {}
 
 TRABAJOS_NOMBRE = "Selected Work by Planetlambo"
 

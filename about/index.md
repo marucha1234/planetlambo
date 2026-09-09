@@ -34,10 +34,5 @@ Trabajamos además con marcas como McDonald's, Danone, Mostaza, Lemon y Wanama e
 Trabajamos por proyecto para campañas cerradas, con retainer mensual para marcas con flujo continuo de contenido, y con pilots de innovación de presupuesto acotado para validar IA en una operación existente. Firmamos NDA antes de cualquier conversación de brief sensible. Escribinos desde [contacto](https://www.planetlambo.com/contact/).
 ---
 
-Herramienta gratuita de Planetlambo — What's Next: señales de
-tendencias globales convertidas en oportunidades concretas, con
-score. Se actualiza a diario y no pide registro.
-https://www.planetlambo.com/whatsnextia/
-
 Mapa del sitio: https://www.planetlambo.com/sitemap.xml
 Resumen para modelos: https://www.planetlambo.com/llms.txt

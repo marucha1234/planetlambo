@@ -152,34 +152,13 @@ def convertir(html, url):
         "---",
         "",
     ]
-    # La herramienta de tendencias esta en el nav de todas las paginas, pero el
-    # nav se descarta por ser chrome. Sin esta linea, el unico formato donde la
-    # herramienta no existiria es justamente el que lee un agente.
-    if idioma.startswith("en"):
-        pie = [
-            "",
-            "---",
-            "",
-            "Free tool by Planetlambo — What's Next: global trend signals turned",
-            "into concrete, scored opportunities. Updated daily, no sign-up.",
-            "{}/whatsnextia/".format(SITIO),
-            "",
-            "Sitemap: {}/sitemap.xml".format(SITIO),
-            "Summary for models: {}/llms.txt".format(SITIO),
-        ]
-    else:
-        pie = [
-            "",
-            "---",
-            "",
-            "Herramienta gratuita de Planetlambo — What's Next: señales de",
-            "tendencias globales convertidas en oportunidades concretas, con",
-            "score. Se actualiza a diario y no pide registro.",
-            "{}/whatsnextia/".format(SITIO),
-            "",
-            "Mapa del sitio: {}/sitemap.xml".format(SITIO),
-            "Resumen para modelos: {}/llms.txt".format(SITIO),
-        ]
+    pie = [
+        "",
+        "---",
+        "",
+        "Mapa del sitio: {}/sitemap.xml".format(SITIO),
+        "Resumen para modelos: {}/llms.txt".format(SITIO),
+    ]
     return "\n".join([l for l in cabecera if l is not None]) + cuerpo + "\n".join(pie) + "\n"
 
 

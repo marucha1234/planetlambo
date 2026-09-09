@@ -34,10 +34,5 @@ Tenemos base en **Buenos Aires, Argentina** y en **São Paulo, Brasil**. Trabaja
 Respondemos las consultas en **24 horas hábiles**. Para briefs sensibles firmamos NDA antes de entrar en detalle. Si tu consulta es de prensa o sobre un caso publicado, mencionalo en el asunto y lo derivamos directo.
 ---
 
-Herramienta gratuita de Planetlambo — What's Next: señales de
-tendencias globales convertidas en oportunidades concretas, con
-score. Se actualiza a diario y no pide registro.
-https://www.planetlambo.com/whatsnextia/
-
 Mapa del sitio: https://www.planetlambo.com/sitemap.xml
 Resumen para modelos: https://www.planetlambo.com/llms.txt

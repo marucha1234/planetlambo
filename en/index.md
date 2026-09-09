@@ -94,9 +94,5 @@ We define KPIs in the initial brief: production cost reduction, time-to-market s
 A new model for brands that want to rethink how they operate, create and scale with artificial intelligence.
 ---
 
-Free tool by Planetlambo — What's Next: global trend signals turned
-into concrete, scored opportunities. Updated daily, no sign-up.
-https://www.planetlambo.com/whatsnextia/
-
-Sitemap: https://www.planetlambo.com/sitemap.xml
-Summary for models: https://www.planetlambo.com/llms.txt
+Mapa del sitio: https://www.planetlambo.com/sitemap.xml
+Resumen para modelos: https://www.planetlambo.com/llms.txt
