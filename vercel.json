@@ -75,7 +75,7 @@
       "permanent": true
     }
   ],
- "headers": [
+  "headers": [
     {
       "source": "/assets/(.*)",
       "headers": [
