@@ -1,7 +1,11 @@
 User-agent: *
 Allow: /
 
-# AI crawlers welcome — see /llms.txt for a structured summary
+# AI crawlers welcome — see /llms.txt for a structured summary.
+# Both kinds are allowed on purpose: the ones that fetch pages to answer a
+# question and cite the source (search/user agents), and the ones that
+# build training data. Allow: / above already covers them; the explicit
+# entries make the intent legible to tools that only look for their name.
 User-agent: GPTBot
 Allow: /
 
@@ -12,6 +16,27 @@ User-agent: PerplexityBot
 Allow: /
 
 User-agent: Google-Extended
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
 Allow: /
 
 Sitemap: https://www.planetlambo.com/sitemap.xml

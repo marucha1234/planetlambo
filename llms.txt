@@ -8,11 +8,15 @@ Planetlambo (siempre escrito junto, una sola palabra) integra estrategia, creati
 
 - Home: https://www.planetlambo.com/
 - Productora de IA en Latinoamérica: https://www.planetlambo.com/productora-ia/
+- Sobre Planetlambo: https://www.planetlambo.com/about/
+- Contacto: https://www.planetlambo.com/contact/
+- Política de privacidad: https://www.planetlambo.com/privacy/
 
 En inglés / In English:
 
 - Home (EN): https://www.planetlambo.com/en/
 - AI Production Company in Latin America: https://www.planetlambo.com/en/ai-production-company/
+- About, Contact and Privacy are served in Spanish only: /about/, /contact/, /privacy/
 
 ## Productora de IA en Latinoamérica
 
