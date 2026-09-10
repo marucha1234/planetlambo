@@ -176,11 +176,10 @@ export default async function middleware(request) {
     if (!quiereMarkdown) return;
 
     // No estar en ESPEJOS no significa no existir. El dominio puede servir
-    // aplicaciones proxeadas que no viven en este repo —lo hizo un tiempo con
-    // una herramienta bajo /whatsnextia/— y manana cualquier pagina nueva.
-    // Antes de declarar 404 hay que
-    // preguntarle al origen, o le estariamos diciendo a un agente que una
-    // seccion real de la marca no existe.
+    // aplicaciones proxeadas que no viven en este repo, y manana cualquier
+    // pagina nueva. Antes de declarar 404 hay que preguntarle al origen, o
+    // le estariamos diciendo a un agente que una seccion real de la marca
+    // no existe.
     let existe = false;
     try {
       const sonda = await fetch(new URL(url.pathname, url.origin), {

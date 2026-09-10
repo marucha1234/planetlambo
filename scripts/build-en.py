@@ -139,8 +139,6 @@ NAV = {
     "Contacto": "Contact",
 }
 
-NAV_DESCRIPCIONES = {}
-
 TRABAJOS_NOMBRE = "Selected Work by Planetlambo"
 
 # rutas relativas que hay que absolutizar
@@ -260,9 +258,9 @@ def faq_desde_dom(soup):
 def url_en(url):
     """La variante inglesa de una URL del nav, cuando existe.
 
-    Las paginas de confianza (/about/, /contact/, /privacy/) y la herramienta
-    de tendencias solo existen en espanol: ahi la URL se deja como esta, que es
-    lo honesto, aunque la etiqueta del nav vaya en ingles.
+    Las paginas de confianza (/about/, /contact/, /privacy/) solo existen en
+    espanol: ahi la URL se deja como esta, que es lo honesto, aunque la
+    etiqueta del nav vaya en ingles.
     """
     ruta = url[len(SITIO):] if url.startswith(SITIO) else url
     if ruta in LINKS:
@@ -305,8 +303,6 @@ def reescribir_jsonld(soup):
                     item["name"] = NAV[nombre]
                 if item.get("url"):
                     item["url"] = url_en(item["url"])
-                if nombre in NAV_DESCRIPCIONES:
-                    item["description"] = NAV_DESCRIPCIONES[nombre]
         elif tipo == "ItemList" and nodo.get("@id", "").endswith("/#work"):
             nodo["@id"] = SITIO + "/en/#work"
             nodo["name"] = TRABAJOS_NOMBRE

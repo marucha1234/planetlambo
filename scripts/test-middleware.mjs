@@ -188,10 +188,10 @@ for (const ruta of [
 console.log("\n\x1b[1mRutas sin espejo que si existen\x1b[0m");
 
 {
-  // Regresion real: /whatsnextia/ es una app proxeada que no vive en este
-  // repo. Con la lista fija, un agente que pedia markdown recibia un 404
-  // diciendo que una seccion real de la marca no existia.
-  const r = await pedir("/whatsnextia/", "text/markdown", { rutaExiste: true });
+  // Regresion real: una app proxeada que no vive en este repo. Con la
+  // lista fija, un agente que pedia markdown recibia un 404 diciendo que
+  // una seccion real de la marca no existia.
+  const r = await pedir("/app-externa/", "text/markdown", { rutaExiste: true });
   verificar("ruta proxeada existente no devuelve 404", "continua", r.accion);
 }
 
@@ -206,7 +206,7 @@ console.log("\n\x1b[1mRutas sin espejo que si existen\x1b[0m");
 }
 
 {
-  const r = await pedir("/whatsnextia/", "text/html", { rutaExiste: true });
+  const r = await pedir("/app-externa/", "text/html", { rutaExiste: true });
   verificar("en HTML no se sondea ni se interviene", "continua", r.accion);
 }
 

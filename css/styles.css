@@ -105,8 +105,8 @@ mark {
 .js #loader.done { transform: translateY(-100%); visibility: hidden; }
 
 /* La intro es la entrada al sitio, no un peaje en cada navegacion. Quien ya
-   la vio en esta sesion —o vuelve desde una pagina interna, como la
-   herramienta de tendencias— entra directo al contenido. Se resuelve por
+   la vio en esta sesion —o vuelve desde una pagina interna— entra directo
+   al contenido. Se resuelve por
    clase en <html> y no por JS para que no se vea ni un fotograma de la
    cortina mientras carga el script. */
 .js.sin-intro #loader { display: none; }
