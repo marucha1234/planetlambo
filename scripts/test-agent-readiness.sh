@@ -23,7 +23,13 @@ BASE="${1:-https://www.planetlambo.com}"
 # secreto de bypass en PL_BYPASS los tests pueden correr contra un preview
 # antes de tocar produccion. Sin la variable, curl se comporta igual que
 # siempre y esto no afecta al uso normal contra el sitio publico.
-CURL=(curl -s)
+# Un parpadeo de DNS o de red no es un fallo del sitio. Sin timeout, un solo
+# request colgado arrastraba a los demas y la suite tardaba minutos en
+# fallar por algo que no era del sitio. Con --retry-all-errors se reintenta
+# tambien el "could not resolve host" (exit 6); como no se usa --fail, un
+# 404 real sigue sin reintentarse y las aserciones de estado no se
+# enmascaran.
+CURL=(curl -s --max-time 20 --retry 2 --retry-delay 2 --retry-all-errors)
 if [ -n "${PL_BYPASS:-}" ]; then
   CURL=("${CURL[@]}" -H "x-vercel-protection-bypass: ${PL_BYPASS}")
 fi
