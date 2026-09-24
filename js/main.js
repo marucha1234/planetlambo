@@ -328,7 +328,15 @@ const openCase = (card) => {
   }
   document.getElementById("caseClient").textContent = card.querySelector(".card-meta").textContent;
   document.getElementById("caseTitle").textContent = card.querySelector(".card-title").textContent;
-  document.getElementById("caseDesc").textContent = card.querySelector(".card-desc").textContent;
+  const caseDesc = document.getElementById("caseDesc");
+  const caseStory = document.getElementById("caseStory");
+  const story = card.querySelector(".card-story");
+  caseDesc.textContent = card.querySelector(".card-desc").textContent;
+  // Si la campaña tiene relato propio, reemplaza a la bajada corta de la
+  // grilla en vez de repetirla debajo.
+  caseStory.innerHTML = story ? story.innerHTML : "";
+  caseStory.hidden = !story;
+  caseDesc.hidden = !!story;
   document.body.classList.add("case-open");
   caseModal.setAttribute("aria-hidden", "false");
   document.documentElement.style.overflow = "hidden";

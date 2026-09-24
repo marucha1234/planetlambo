@@ -1249,6 +1249,27 @@ body.case-open .nav { opacity: 0; pointer-events: none; }
   margin: 0.7rem 0 0.9rem;
 }
 
+/* El relato largo de un caso. Vive oculto dentro de la card —que es un
+   <button>, y por eso son <span> y no <p>— y el modal lo copia al abrirse.
+   Queda en el HTML, no en un atributo, para que sea contenido de verdad. */
+.card-story { display: none; }
+
+/* El atributo hidden por si solo no alcanza acá: alguna regla le gana al
+   display por defecto del navegador. Con el selector explícito no queda
+   librado a eso. */
+.case-info p[hidden],
+.case-story[hidden] { display: none; }
+
+.case-story {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--secondary);
+  max-width: 62ch;
+}
+
+.case-story > span { display: block; }
+.case-story > span + span { margin-top: 0.9rem; }
+
 .case-info p {
   font-size: 15px;
   line-height: 1.65;
