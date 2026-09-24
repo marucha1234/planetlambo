@@ -822,7 +822,6 @@ body.cinema-open .nav { opacity: 0; pointer-events: none; }
    recorte se corre hacia arriba para conservar texto y rostro completos.
    Va por nombre de archivo: aplica igual en espanol y en ingles, que
    comparten hoja de estilos. */
-.card-img img[src$="work3.webp"] { object-position: center 25%; }
 
 .card {
   text-decoration: none;
