@@ -14,8 +14,8 @@ if (mode === 'stills') {
   }
 } else {
   fs.mkdirSync(out, { recursive: true });
-  const dur = await page.evaluate(() => DUR), n = Math.round(dur * +fps);
-  for (let i = 0; i < n; i++) {
+  const dur = await page.evaluate(() => typeof TOTAL !== 'undefined' ? TOTAL : DUR), n = Math.round(dur * +fps);
+  for (let i = +(process.env.START||0); i < n; i++) {
     await page.evaluate(t => render(t), i / +fps);
     await page.screenshot({ path: `${out}/f${String(i).padStart(5, '0')}.jpg`, type: 'jpeg', quality: 95 });
   }
