@@ -1,0 +1,11 @@
+No se pudo grabar la demo con el agente de voz "Lambo" (ElevenLabs).
+
+Fecha: 2026-09-28
+Comando: curl -sS -o /dev/null -w "%{http_code}\n" https://api.elevenlabs.io/
+Resultado: 000
+Error: curl: (56) CONNECT tunnel failed, response 403
+Proxy: api.elevenlabs.io:443 — connect_rejected (el proxy de salida rechazó el CONNECT por política de red de la organización/entorno)
+
+Solución: agregar api.elevenlabs.io a los hosts permitidos en la política de red
+del entorno de Claude Code on the web y volver a correr la tarea
+(node lambo-promo/fuente/demo.mjs desde lambo-promo/demo/).
