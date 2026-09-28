@@ -45,7 +45,7 @@ No projects match this filter.
 
 Planetlambo is a technology lab with an AI-first mindset above all. We integrate creativity, artificial intelligence, strategy and frontier technology to design, produce and scale campaigns that transform brands.
 
-Mostaza · Unilever · McDonald's · Danone · Lemon · DreamCo · Salentein · Wanama · Olé · Grangy's · Extremas
+Mostaza · Unilever · McDonald's · Danone · Lemon · DreamCo · Salentein · Wanama · Olé · Grangy's
 
 ## FAQ
 

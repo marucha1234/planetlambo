@@ -53,7 +53,7 @@ Planetlambo es un laboratorio tecnológico con una mirada AI-first antes
  inteligencia artificial, estrategia y tecnología de frontera para diseñar, producir
  y escalar campañas que transforman marcas.
 
-Mostaza · Unilever · McDonald's · Danone · Lemon · DreamCo · Salentein · Wanama · Olé · Grangy's · Extremas
+Mostaza · Unilever · McDonald's · Danone · Lemon · DreamCo · Salentein · Wanama · Olé · Grangy's
 
 ## FAQ
 
