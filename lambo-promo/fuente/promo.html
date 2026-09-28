@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Lambo · Agentes de voz</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;800;900&family=Inter:wght@400;600;800&display=block">
+<style>
+:root{
+  --bg:#fdf8f8; --ink:#1c1b1b; --sec:#645c5d; --lime:#d4ff00; --black:#0b0b0b;
+  --display:"Hanken Grotesk",sans-serif; --body:"Inter",sans-serif;
+  --u:1vmin;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100vw;height:100vh;overflow:hidden;background:var(--black);-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;overflow:hidden;display:none}
+.scene.on{display:block}
+.fill{position:absolute;inset:0}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 calc(9*var(--u))}
+.eyebrow{font-family:var(--body);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:calc(2.6*var(--u))}
+.disp{font-family:var(--display);font-weight:800;letter-spacing:-.045em;line-height:.92}
+.anim{will-change:transform,opacity}
+mark{background:var(--lime);color:#000;padding:0 .12em;margin:0 -.04em}
+
+/* chrome */
+#chrome{position:absolute;inset:0;pointer-events:none;z-index:50;font-family:var(--body);font-weight:600;font-size:calc(2.2*var(--u));letter-spacing:.18em;text-transform:uppercase}
+#chrome .tl{position:absolute;top:calc(5*var(--u));left:calc(6*var(--u));display:flex;flex-direction:column;gap:.5em}
+#chrome .tl b{font-family:var(--display);font-weight:800;letter-spacing:.02em;font-size:1.35em}
+#chrome .tl span{opacity:.6;font-size:.8em}
+#chrome .tr{position:absolute;top:calc(5.4*var(--u));right:calc(6*var(--u));display:flex;align-items:center;gap:.7em}
+#chrome .dot{width:.8em;height:.8em;border-radius:50%;background:#ff3b30}
+#chrome .br{position:absolute;bottom:calc(5*var(--u));right:calc(6*var(--u));opacity:.6}
+#chrome .bl{position:absolute;bottom:calc(5*var(--u));left:calc(6*var(--u));opacity:.6}
+
+/* S1 */
+#s1{background:var(--black);color:var(--bg)}
+#s1 canvas{position:absolute;left:0;right:0;top:50%;width:100%;height:calc(40*var(--u));transform:translateY(-50%)}
+#s1 .lines{position:absolute;left:calc(9*var(--u));right:calc(9*var(--u));bottom:calc(22*var(--u));font-size:calc(9*var(--u))}
+#s1 .lines div{overflow:hidden;padding-bottom:.08em}
+#s1 .l3{color:var(--lime)}
+
+/* S2 */
+#s2{background:var(--lime);color:#000}
+#s2 .big{font-size:calc(23*var(--u));line-height:.86}
+#s2 .big div{overflow:hidden}
+#s2 .big span{display:inline-block}
+#s2 .sub{margin-top:calc(6*var(--u));font-size:calc(3.2*var(--u))}
+
+/* S3 */
+#s3{background:var(--bg);color:var(--ink)}
+#s3 .wrap{position:absolute;inset:0;padding:calc(20*var(--u)) calc(7*var(--u)) calc(12*var(--u));display:flex;flex-direction:column;gap:calc(3.4*var(--u));justify-content:center}
+#s3 .eyebrow{color:var(--sec);margin-bottom:calc(2*var(--u))}
+.msg{max-width:88%;font-family:var(--body);font-size:calc(4.1*var(--u));line-height:1.3;padding:calc(3.2*var(--u)) calc(4*var(--u));border-radius:calc(4*var(--u))}
+.msg.user{align-self:flex-end;background:var(--ink);color:var(--bg);border-bottom-right-radius:calc(1*var(--u))}
+.msg.bot{align-self:flex-start;background:#fff;border:2px solid var(--ink);border-bottom-left-radius:calc(1*var(--u))}
+.msg .who{display:flex;align-items:center;gap:.6em;font-weight:800;font-size:.62em;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.6em}
+.msg.user .who{color:var(--lime)}
+.msg .who i{display:inline-block;width:1.4em;height:1.4em;border-radius:50%;background:var(--lime);border:2px solid var(--ink)}
+.msg canvas{display:block;width:100%;height:calc(7*var(--u));margin-bottom:.4em}
+
+/* S4 */
+#s4{background:var(--ink);color:var(--bg)}
+#s4 .title{font-size:calc(9.5*var(--u));margin-bottom:calc(6*var(--u))}
+#s4 .title span{color:var(--lime)}
+#s4 ul{list-style:none;width:100%}
+#s4 li{display:flex;gap:calc(3.5*var(--u));align-items:baseline;border-top:1px solid rgba(253,248,248,.25);padding:calc(3.2*var(--u)) 0;font-family:var(--display);font-weight:400;font-size:calc(5.4*var(--u));letter-spacing:-.02em;line-height:1.1}
+#s4 li b{font-family:var(--body);font-weight:600;color:var(--lime);font-size:.5em;letter-spacing:.1em;min-width:2.4em}
+#s4 li strong{font-weight:800}
+
+/* S5 */
+#s5{background:var(--black);color:var(--bg)}
+#s5 canvas{position:absolute;inset:0;width:100%;height:100%}
+#s5 .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#s5 .eyebrow{color:var(--lime);margin-bottom:calc(3*var(--u))}
+#s5 .pre{font-size:calc(7*var(--u));font-weight:300;font-family:var(--display);letter-spacing:-.02em}
+#s5 .name{white-space:nowrap;font-size:calc(21*var(--u));color:var(--lime);line-height:.85;margin:calc(1*var(--u)) 0 calc(4*var(--u))}
+#s5 .name span{display:inline-block}
+#s5 .tag{font-family:var(--body);font-size:calc(3.6*var(--u));line-height:1.45;opacity:.9}
+
+/* S6 */
+#s6{background:var(--lime);color:#000}
+#s6 .wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:calc(18*var(--u)) calc(8*var(--u)) calc(14*var(--u));gap:calc(6*var(--u))}
+#s6 .q{font-size:calc(10.5*var(--u))}
+#s6 .q div{overflow:hidden;padding-bottom:.06em}
+#s6 .q .hl{background:#000;color:var(--lime);padding:0 .12em}
+#s6 .card{display:flex;align-items:center;gap:calc(4.5*var(--u));background:var(--bg);border:3px solid #000;padding:calc(4*var(--u));border-radius:calc(3*var(--u));box-shadow:calc(1.6*var(--u)) calc(1.6*var(--u)) 0 #000;align-self:flex-start}
+#s6 .card img{width:calc(30*var(--u));height:calc(30*var(--u))}
+#s6 .card .t{font-family:var(--display);font-weight:800;font-size:calc(5.6*var(--u));line-height:1;letter-spacing:-.03em;max-width:6.4em}
+#s6 .card .t small{display:block;font-family:var(--body);font-weight:600;font-size:.4em;letter-spacing:.14em;text-transform:uppercase;margin-top:1.1em;color:var(--sec);line-height:1.5}
+#s6 .sign{display:flex;justify-content:space-between;align-items:flex-end;border-top:3px solid #000;padding-top:calc(3*var(--u))}
+#s6 .sign b{font-family:var(--display);font-weight:800;font-size:calc(5.4*var(--u));letter-spacing:-.01em}
+#s6 .sign span{font-family:var(--body);font-weight:600;font-size:calc(2.6*var(--u));letter-spacing:.16em;text-transform:uppercase}
+
+#wipe{position:absolute;left:0;right:0;top:0;height:100%;z-index:40;display:none}
+#fade{position:absolute;inset:0;background:#000;z-index:60;opacity:0;pointer-events:none}
+
+@media (orientation:landscape){
+  #s1 .lines{bottom:calc(12*var(--u))}
+  #s1 canvas{top:38%}
+  #s3 .wrap{padding:calc(15*var(--u)) calc(30*var(--u)) calc(9*var(--u));gap:calc(2.2*var(--u))}
+  #s3 .eyebrow{margin-bottom:0}
+  .msg{font-size:calc(3*var(--u));padding:calc(2.2*var(--u)) calc(3.2*var(--u))}
+  .msg canvas{height:calc(5*var(--u))}
+  #s4 .center{padding:0 calc(22*var(--u))}
+  #s4 .title{font-size:calc(8*var(--u));margin-bottom:calc(3*var(--u))}
+  #s4 li{font-size:calc(4.6*var(--u));padding:calc(2.2*var(--u)) 0}
+  #s6 .wrap{padding:calc(14*var(--u)) calc(14*var(--u)) calc(8*var(--u));display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr auto;column-gap:calc(8*var(--u));row-gap:calc(5*var(--u));align-items:center}
+  #s6 .sign{grid-column:1/3}
+  #s6 .q{font-size:calc(9.5*var(--u))}
+  #s6 .card{align-self:center;flex-direction:column;align-items:flex-start}
+  #s6 .card .t{max-width:none;font-size:calc(4.6*var(--u))}
+}
+</style>
+</head>
+<body>
+
+<!-- S1 · 0–4s -->
+<section class="scene" id="s1">
+  <canvas id="wave1"></canvas>
+  <div class="lines disp">
+    <div><span class="anim l1" style="display:inline-block">Tu marca ya se ve.</span></div>
+    <div><span class="anim l2" style="display:inline-block">Ahora,</span></div>
+    <div><span class="anim l3" style="display:inline-block">que se escuche.</span></div>
+  </div>
+</section>
+
+<!-- S2 · 4–8s -->
+<section class="scene" id="s2">
+  <div class="center">
+    <div class="big disp">
+      <div><span class="anim w1">HABLÁ</span></div>
+      <div><span class="anim w2">CON TU</span></div>
+      <div><span class="anim w3">MARCA.</span></div>
+    </div>
+    <div class="sub eyebrow anim s2sub">Agentes de voz con IA — by Planetlambo</div>
+  </div>
+</section>
+
+<!-- S3 · 8–14s -->
+<section class="scene" id="s3">
+  <div class="wrap">
+    <div class="eyebrow anim s3e">En vivo · 24/7 · Con la voz de tu marca</div>
+    <div class="msg user anim m1"><div class="who">Cliente</div>Hola! ¿Qué me recomendás para esta noche?</div>
+    <div class="msg bot anim m2"><div class="who"><i></i>Agente de tu marca</div><canvas id="wave3"></canvas><span class="tw" data-text="¡Hola! Tengo tres ideas según lo que tengas en casa. ¿Te cuento la más rápida?"></span></div>
+    <div class="msg user anim m3"><div class="who">Cliente</div>Dale. ¿Y lo puedo pedir ya?</div>
+    <div class="msg bot anim m4"><div class="who"><i></i>Agente de tu marca</div><span class="tw" data-text="Listo. Te lo armo ahora mismo."></span></div>
+  </div>
+</section>
+
+<!-- S4 · 14–20s -->
+<section class="scene" id="s4">
+  <div class="center">
+    <div class="eyebrow anim s4e" style="color:#b8acad;margin-bottom:calc(3*var(--u))">Agentes de voz · Planetlambo</div>
+    <div class="title disp anim s4t">Tu agente de voz<span>.</span></div>
+    <ul>
+      <li class="anim i1"><b>01</b><span>Habla con <strong>la voz de tu marca.</strong></span></li>
+      <li class="anim i2"><b>02</b><span>Conoce tus productos <strong>de memoria.</strong></span></li>
+      <li class="anim i3"><b>03</b><span>Atiende <strong>24/7</strong>, sin esperas.</span></li>
+      <li class="anim i4"><b>04</b><span>Vive en tu <strong>web, app o experiencia.</strong></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- S5 · 20–25s -->
+<section class="scene" id="s5">
+  <canvas id="orb"></canvas>
+  <div class="c">
+    <div class="eyebrow anim s5e">● Lanzamiento</div>
+    <div class="pre anim s5p">Conocé a</div>
+    <div class="name disp"><span class="anim n1">L</span><span class="anim n2">A</span><span class="anim n3">M</span><span class="anim n4">B</span><span class="anim n5">O</span></div>
+    <div class="tag anim s5t">El agente de voz de Planetlambo.<br>Hablale. Te va a responder.</div>
+  </div>
+</section>
+
+<!-- S6 · 25–32s -->
+<section class="scene" id="s6">
+  <div class="wrap">
+    <div class="q disp">
+      <div><span class="anim q1" style="display:inline-block">¿Tu marca</span></div>
+      <div><span class="anim q2" style="display:inline-block">quiere el suyo?</span></div>
+      <div><span class="anim q3" style="display:inline-block"><span class="hl">Pedíselo</span></span></div>
+      <div><span class="anim q4" style="display:inline-block"><span class="hl">a Lambo.</span></span></div>
+    </div>
+    <div class="card anim cd">
+      <img src="qr.svg" alt="">
+      <div class="t">Escaneá y hablá con Lambo<small>Agentes de voz para<br>marcas y negocios</small></div>
+    </div>
+    <div class="sign anim sg"><b>PLANETLAMBO</b><span>planetlambo.com</span></div>
+  </div>
+</section>
+
+<div id="wipe"></div>
+<div id="chrome">
+  <div class="tl"><b>PLANETLAMBO</b><span>Tech Market Lab</span></div>
+  <div class="tr"><i class="dot"></i><span>Voice AI</span></div>
+  <div class="bl">Buenos Aires · São Paulo</div>
+</div>
+<div id="fade"></div>
+
+<script>
+const DUR = 32;
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const clamp = (x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const eo = x => x>=1?1:1-Math.pow(2,-10*x);          // easeOutExpo
+const eio = x => x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2; // easeInOutCubic
+const P = (t,s,d=.7,e=eo)=>e(clamp((t-s)/d));
+
+function set(el,{x=0,y=0,s=1,o=1,r=0,blur=0}={}){
+  if(typeof el==='string') el=$(el);
+  el.style.transform=`translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;
+  el.style.opacity=o;
+  el.style.filter=blur?`blur(${blur}px)`:'none';
+}
+const H = () => innerHeight, W = () => innerWidth, U = () => Math.min(W(),H())/100;
+
+// rise from mask
+function rise(sel,t,s,d=.8){ const p=P(t,s,d); set(sel,{y:(1-p)*1.1*($(sel).offsetHeight||100),o:p>0?1:0}); }
+function fadeUp(sel,t,s,d=.8,dist=6){ const p=P(t,s,d); set(sel,{y:(1-p)*dist*U(),o:p}); }
+
+// pseudo-voice amplitude envelope
+function amp(t,k=0){
+  const a=Math.abs(Math.sin(t*9.1+k)*.5+Math.sin(t*14.3+k*2.1)*.3+Math.sin(t*3.7+k*.7)*.4);
+  const syll=.55+.45*Math.sin(t*22+k*3);
+  return clamp(a*syll*1.25);
+}
+
+function sizeCanvas(c){
+  const r=c.getBoundingClientRect(), dpr=1;
+  if(c.width!==Math.round(r.width*dpr)||c.height!==Math.round(r.height*dpr)){c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr);}
+  return c.getContext('2d');
+}
+function bars(c,t,{n=64,color='#d4ff00',level=1,gap=.45,seed=0,min=.04}={}){
+  const g=sizeCanvas(c), w=c.width, h=c.height; g.clearRect(0,0,w,h);
+  const bw=w/n;
+  g.fillStyle=color;
+  for(let i=0;i<n;i++){
+    const x=i/n, env=Math.sin(Math.PI*x);
+    let v=amp(t+i*.035,seed+i*.9)*env*level;
+    v=Math.max(min,v);
+    const bh=v*h*.95, rad=bw*(1-gap)/2;
+    const bx=i*bw+bw*gap/2, by=(h-bh)/2;
+    g.beginPath(); g.roundRect(bx,by,bw*(1-gap),bh,rad); g.fill();
+  }
+}
+
+const SCENES=[['s1',0,4],['s2',4,8],['s3',8,14],['s4',14,20],['s5',20,25],['s6',25,32]];
+const WIPES=[[4,'#d4ff00'],[8,'#fdf8f8'],[14,'#1c1b1b'],[20,'#0b0b0b'],[25,'#d4ff00']];
+
+function render(t){
+  for(const [id,a,b] of SCENES) $('#'+id).classList.toggle('on',t>=a-0.001&&t<b);
+
+  // wipe: a block sweeps up over the cut (0.4s before -> 0.4s after)
+  const wipe=$('#wipe'); wipe.style.display='none';
+  for(const [at,col] of WIPES){
+    if(t>=at-.4&&t<at+.4){
+      wipe.style.display='block'; wipe.style.background=col;
+      if(t<at){ const p=eio((t-(at-.4))/.4); wipe.style.transform=`translateY(${(1-p)*100}%)`; }
+      else { const p=eio((t-at)/.4); wipe.style.transform=`translateY(${-p*100}%)`; }
+    }
+  }
+
+  // chrome color per scene
+  const chromeCol = t<4?'#fdf8f8': t<8?'#000': t<14?'#1c1b1b': t<20?'#fdf8f8': t<25?'#fdf8f8':'#000';
+  $('#chrome').style.color=chromeCol;
+  $('#chrome').style.opacity = t>=25.2 ? 0 : P(t,.2,.8);
+
+  // S1
+  if(t<4.4){
+    const lvl = t<.6? P(t,0,.6) : (t<1.6?.35:.35+.65*P(t,1.6,1.2));
+    bars($('#wave1'),t,{n:W()>H()?96:56,level:lvl,color: t>2.6?'#d4ff00':'#fdf8f8'});
+    rise('#s1 .l1',t,.3); rise('#s1 .l2',t,1.6); rise('#s1 .l3',t,2.3);
+  }
+  // S2
+  if(t>=3.6&&t<8.4){
+    ['.w1','.w2','.w3'].forEach((s,i)=>{ const p=P(t,4.05+i*.5,.6); set('#s2 '+s,{y:(1-p)*25*U(),o:p>0?1:0}); });
+    fadeUp('#s2 .s2sub',t,5.8);
+    const zoom=1+ (t-4)*.012; $('#s2 .big').style.transform=`scale(${zoom})`; $('#s2 .big').style.transformOrigin='left center';
+  }
+  // S3
+  if(t>=7.6&&t<14.4){
+    fadeUp('#s3 .s3e',t,8.1,.6,3);
+    fadeUp('#s3 .m1',t,8.3,.6,4);
+    fadeUp('#s3 .m2',t,9.3,.6,4);
+    fadeUp('#s3 .m3',t,11.8,.6,4);
+    fadeUp('#s3 .m4',t,12.6,.6,4);
+    const speaking = t>9.4&&t<11.6;
+    bars($('#wave3'),t,{n:44,color:'#1c1b1b',level:speaking?1:.12,gap:.5,seed:3,min:.08});
+    const tws=$$('#s3 .tw');
+    [[tws[0],9.6,1.9],[tws[1],12.8,.9]].forEach(([el,s,d])=>{
+      const txt=el.dataset.text, n=Math.floor(txt.length*clamp((t-s)/d));
+      el.textContent=txt.slice(0,n)+(n<txt.length&&n>0?'▍':'');
+      if(n===0) el.innerHTML='&nbsp;';
+    });
+  }
+  // S4
+  if(t>=13.6&&t<20.4){
+    fadeUp('#s4 .s4e',t,14.2,.6,3);
+    fadeUp('#s4 .s4t',t,14.35,.7,5);
+    ['.i1','.i2','.i3','.i4'].forEach((s,i)=>{ const p=P(t,15+i*1.0,.7); set('#s4 '+s,{x:(1-p)*-8*U(),o:p}); });
+  }
+  // S5
+  if(t>=19.6&&t<25.4){
+    const c=$('#orb'), g=sizeCanvas(c), w=c.width, h=c.height; g.clearRect(0,0,w,h);
+    const cx=w/2, cy=h/2, R=Math.min(w,h)*.45, grow=P(t,20,1.2);
+    // glow
+    const grd=g.createRadialGradient(cx,cy,0,cx,cy,R*1.6);
+    grd.addColorStop(0,`rgba(212,255,0,${.22*grow})`); grd.addColorStop(1,'rgba(212,255,0,0)');
+    g.fillStyle=grd; g.fillRect(0,0,w,h);
+    // radial voice ring
+    const N=120; g.strokeStyle='#d4ff00'; g.lineCap='round'; g.lineWidth=Math.max(2,Math.min(w,h)*.004);
+    for(let i=0;i<N;i++){
+      const a=i/N*Math.PI*2 - Math.PI/2;
+      const v=amp(t+i*.02,i*1.3)*(t>22.3?1:.35)*grow;
+      const r0=R*grow, r1=r0+Math.min(w,h)*(.012+.05*v);
+      g.globalAlpha=.35+.65*grow;
+      g.beginPath(); g.moveTo(cx+Math.cos(a)*r0,cy+Math.sin(a)*r0); g.lineTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1); g.stroke();
+    }
+    g.globalAlpha=1;
+    fadeUp('#s5 .s5e',t,20.2,.6,3);
+    fadeUp('#s5 .s5p',t,20.4,.6,3);
+    ['.n1','.n2','.n3','.n4','.n5'].forEach((s,i)=>{ const p=P(t,21+i*.09,.8); set('#s5 '+s,{y:(1-p)*18*U(),o:p,blur:(1-p)*12}); });
+    fadeUp('#s5 .s5t',t,22.4,.8,3);
+  }
+  // S6
+  if(t>=24.6){
+    rise('#s6 .q1',t,25.2,.7); rise('#s6 .q2',t,25.45,.7);
+    rise('#s6 .q3',t,26.2,.7); rise('#s6 .q4',t,26.45,.7);
+    const pc=P(t,27.2,.9); set('#s6 .cd',{y:(1-pc)*8*U(),o:pc,s:.94+.06*pc});
+    fadeUp('#s6 .sg',t,27.9,.8,3);
+  }
+  // outro fade
+  $('#fade').style.opacity = P(t,31.2,.8,x=>x);
+}
+window.render=render; window.DUR=DUR;
+document.fonts.ready.then(()=>{ window.READY=true; render(0); });
+
+// preview playback: open with #play
+if(location.hash==='#play'){ const t0=performance.now(); (function loop(){ render(((performance.now()-t0)/1000)%DUR); requestAnimationFrame(loop); })(); }
+</script>
+</body>
+</html>
