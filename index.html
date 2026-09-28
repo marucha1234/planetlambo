@@ -583,11 +583,11 @@
     {
       "@type": "VideoObject",
       "name": "Planetlambo Showreel 2026",
-      "description": "Showreel 2026 de Planetlambo: producción publicitaria con inteligencia artificial para McDonald's, Unilever, Danone, Mostaza, Olé y más.",
+      "description": "Showreel 2026 de Planetlambo: producción publicitaria con inteligencia artificial para Unilever, Danone, Mostaza, Olé y más.",
       "thumbnailUrl": "https://www.planetlambo.com/assets/poster.jpg",
-      "contentUrl": "https://www.planetlambo.com/assets/reel.mp4",
-      "uploadDate": "2026-07-10T12:00:00-03:00",
-      "duration": "PT1M9S",
+      "contentUrl": "https://www.planetlambo.com/assets/reel-v2.mp4",
+      "uploadDate": "2026-09-28T12:00:00-03:00",
+      "duration": "PT1M6S",
       "publisher": {
         "@id": "https://www.planetlambo.com/#org"
       }
@@ -682,7 +682,7 @@ setTimeout(function () {
 <body class="loading">
 <!-- LOADER — knockout type over the reel -->
 <div aria-hidden="true" id="loader">
-<video autoplay="" data-desk="assets/reel-lite.mp4" data-mob="assets/reel-mobile.mp4" id="loaderVideo" loop="" muted="" playsinline="" poster="assets/poster.jpg" preload="auto"></video>
+<video autoplay="" data-desk="assets/reel-lite-v2.mp4" data-mob="assets/reel-mobile-v2.mp4" id="loaderVideo" loop="" muted="" playsinline="" poster="assets/poster.jpg" preload="auto"></video>
 <script>(function(){var v=document.getElementById('loaderVideo');if(!matchMedia('(max-width:800px)').matches){v.src=v.dataset.desk;v.load();var p=v.play();if(p&&p.catch)p.catch(function(){});}})();</script>
 <canvas aria-hidden="true" id="loaderCanvas"></canvas>
 <div class="knockout">
@@ -715,7 +715,7 @@ setTimeout(function () {
 <main id="top">
 <!-- HERO — full-bleed reel with HUD -->
 <section class="hero-reel" id="showreel">
-<video autoplay="" data-desk="assets/reel-lite.mp4" data-mob="assets/reel-mobile.mp4" id="heroVideo" loop="" muted="" playsinline="" poster="assets/poster.jpg" preload="auto"></video>
+<video autoplay="" data-desk="assets/reel-lite-v2.mp4" data-mob="assets/reel-mobile-v2.mp4" id="heroVideo" loop="" muted="" playsinline="" poster="assets/poster.jpg" preload="auto"></video>
 <script>(function(){var v=document.getElementById('heroVideo');v.src=matchMedia('(max-width:800px)').matches?v.dataset.mob:v.dataset.desk;v.load();var p=v.play();if(p&&p.catch)p.catch(function(){});})();</script>
 <div aria-hidden="true" class="hero-veil"></div>
 <div class="hud">
@@ -743,7 +743,7 @@ setTimeout(function () {
 <div class="split-left">
 <span class="eyebrow reveal">01 — Tech Market Lab</span>
 <h2 class="claim-title knock reveal">
-<video class="knock-video" data-desk="assets/reel-lite.mp4" data-mob="assets/reel-mobile.mp4" data-offset="18" loop="" muted="" playsinline="" preload="none"></video>
+<video class="knock-video" data-desk="assets/reel-lite-v2.mp4" data-mob="assets/reel-mobile-v2.mp4" data-offset="18" loop="" muted="" playsinline="" preload="none"></video>
 <span class="knock-plate" data-en="The most inspiring&lt;br&gt;Tech&amp;nbsp;Market&amp;nbsp;Lab">El Tech Market Lab<br/>más inspirador</span>
 </h2>
 <p class="claim-sub reveal" data-en="&lt;mark&gt;Strategy, creativity, and frontier AI&lt;/mark&gt;, integrated to design, produce, and scale campaigns for curious brands."><mark>Estrategia, creatividad e IA de frontera</mark>, integradas para diseñar,
@@ -967,7 +967,7 @@ setTimeout(function () {
 <section class="contact" id="contact">
 <span class="eyebrow reveal" data-en="06 — Start">06 — Comenzar</span>
 <h2 class="contact-title knock reveal">
-<video class="knock-video" data-desk="assets/reel-lite.mp4" data-mob="assets/reel-mobile.mp4" data-offset="45.5" loop="" muted="" playsinline="" preload="none"></video>
+<video class="knock-video" data-desk="assets/reel-lite-v2.mp4" data-mob="assets/reel-mobile-v2.mp4" data-offset="45.5" loop="" muted="" playsinline="" preload="none"></video>
 <span class="knock-plate" data-en="Start a&lt;br&gt;project">Empezá un<br/>proyecto</span>
 </h2>
 <p class="contact-sub reveal" data-en="A new model for brands that want to rethink how they operate, create and scale with artificial intelligence.">Un nuevo modelo para marcas que quieren repensar cómo operan,
@@ -1006,7 +1006,7 @@ setTimeout(function () {
 <button aria-label="Cerrar" class="cinema-close case-close" data-en="Close ✕" id="caseClose">Cerrar ✕</button>
 <div class="case-box">
 <div class="case-media">
-<video id="caseVideo" playsinline="" preload="metadata" src="assets/reel.mp4"></video>
+<video id="caseVideo" playsinline="" preload="metadata" src="assets/reel-v2.mp4"></video>
 <span aria-hidden="true" class="case-hint" id="caseHint">
 <svg viewbox="0 0 24 24"><path d="M8 5 L19 12 L8 19 Z" fill="currentColor"></path></svg>
 </span>
@@ -1025,7 +1025,7 @@ setTimeout(function () {
 </div>
 <!-- CINEMA MODE -->
 <div aria-hidden="true" aria-label="Showreel" id="cinema" role="dialog">
-<video id="cinemaVideo" playsinline="" poster="assets/poster.jpg" preload="metadata" src="assets/reel.mp4"></video>
+<video id="cinemaVideo" playsinline="" poster="assets/poster.jpg" preload="metadata" src="assets/reel-v2.mp4"></video>
 <button aria-label="Cerrar" class="cinema-close" data-en="Close ✕" id="cinemaClose">Cerrar ✕</button>
 <div class="cinema-bar">
 <span class="cinema-tc" id="cinemaTc">00:00</span>

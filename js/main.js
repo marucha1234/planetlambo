@@ -316,7 +316,7 @@ const openCase = (card) => {
   const cardImg = card.querySelector(".card-img img");
   if (cardImg) caseVideo.poster = cardImg.currentSrc || cardImg.src;
   // Full campaign video when available; reel segment as fallback
-  const src = card.dataset.video || "/assets/reel.mp4";
+  const src = card.dataset.video || "/assets/reel-v2.mp4";
   if (card.dataset.video) {
     segStart = 0;
     segEnd = 0;

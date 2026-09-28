@@ -187,7 +187,7 @@ done
 HL=$("${CURL[@]}" "$BASE/" | grep -o '<link[^>]*hreflang[^>]*>' | grep -c . || true)
 comparar "la home mantiene 3 hreflang" "3" "$HL"
 
-for V in reel-lite.mp4 case-mostaza.mp4 poster.jpg; do
+for V in reel-lite-v2.mp4 case-mostaza.mp4 poster.jpg; do
   COD=$("${CURL[@]}" -o /dev/null -w "%{http_code}" "$BASE/assets/$V")
   comparar "assets/$V responde 200" "200" "$COD"
 done
