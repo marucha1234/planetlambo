@@ -116,7 +116,7 @@ mark{background:var(--lime);color:#000;padding:0 .12em;margin:0 -.04em}
   #s1 .lines{bottom:calc(10*var(--u));font-size:calc(8*var(--u))}
   #s2 .big{font-size:calc(19*var(--u))}
   #s2 .center{padding-top:calc(4*var(--u))}
-  #s3 .wrap{padding:calc(15*var(--u)) calc(7*var(--u)) calc(6*var(--u));gap:calc(1.8*var(--u))}
+  #s3 .wrap{padding:calc(13*var(--u)) calc(7*var(--u)) calc(4*var(--u));gap:calc(1.6*var(--u))}
   .msg{font-size:calc(3.3*var(--u));padding:calc(2*var(--u)) calc(3*var(--u))}
   .msg canvas{height:calc(4.5*var(--u))}
   #s4 .center{padding:calc(8*var(--u)) calc(8*var(--u)) 0}
@@ -159,10 +159,10 @@ mark{background:var(--lime);color:#000;padding:0 .12em;margin:0 -.04em}
 <section class="scene" id="s3">
   <div class="wrap">
     <div class="eyebrow anim s3e">En vivo · 24/7 · Con la voz de tu marca</div>
-    <div class="msg user anim m1"><div class="who">Cliente</div>Hola! ¿Qué me recomendás para esta noche?</div>
-    <div class="msg bot anim m2"><div class="who"><i></i>Agente de tu marca</div><canvas id="wave3"></canvas><span class="tw" data-text="¡Hola! Tengo tres ideas según lo que tengas en casa. ¿Te cuento la más rápida?"></span></div>
-    <div class="msg user anim m3"><div class="who">Cliente</div>Dale. ¿Y lo puedo pedir ya?</div>
-    <div class="msg bot anim m4"><div class="who"><i></i>Agente de tu marca</div><span class="tw" data-text="Listo. Te lo armo ahora mismo."></span></div>
+    <div class="msg user anim m1"><div class="who">Cliente</div>¡Hola! ¿Qué chocolate me recomendás para regalar?</div>
+    <div class="msg bot anim m2"><div class="who"><i></i>Agente · Chocolatería</div><canvas id="wave3"></canvas><span class="tw" data-text="Nuestra tableta 70% cacao de Ecuador: intensa, con notas frutales. Si preferís algo más suave, la de 54%."></span></div>
+    <div class="msg user anim m3"><div class="who">Cliente</div>¡La de 70%! ¿Cuánto sale?</div>
+    <div class="msg bot anim m4"><div class="who"><i></i>Agente · Chocolatería</div><span class="tw" data-text="$8.500, con envío gratis hoy. ¿Te la envuelvo?"></span></div>
   </div>
 </section>
 
@@ -301,12 +301,12 @@ function render(t){
     fadeUp('#s3 .s3e',t,8.1,.6,3);
     fadeUp('#s3 .m1',t,8.3,.6,4);
     fadeUp('#s3 .m2',t,9.3,.6,4);
-    fadeUp('#s3 .m3',t,11.8,.6,4);
-    fadeUp('#s3 .m4',t,12.6,.6,4);
-    const speaking = t>9.4&&t<11.6;
+    fadeUp('#s3 .m3',t,11.5,.6,4);
+    fadeUp('#s3 .m4',t,12.2,.6,4);
+    const speaking = t>9.3&&t<11.3;
     bars($('#wave3'),t,{n:44,color:'#1c1b1b',level:speaking?1:.12,gap:.5,seed:3,min:.08});
     const tws=$$('#s3 .tw');
-    [[tws[0],9.6,1.9],[tws[1],12.8,.9]].forEach(([el,s,d])=>{
+    [[tws[0],9.5,1.7],[tws[1],12.4,.9]].forEach(([el,s,d])=>{
       const txt=el.dataset.text, n=Math.floor(txt.length*clamp((t-s)/d));
       el.textContent=txt.slice(0,n)+(n<txt.length&&n>0?'▍':'');
       if(n===0) el.innerHTML='&nbsp;';
