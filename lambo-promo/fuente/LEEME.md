@@ -13,3 +13,9 @@
   (transcripción, tiempos y envolvente de la onda). El mp3 original no está en el repo.
 - `mix.py`: música 0–8 s + glitch + demo + música desde 14 s → `mix_demo.wav`.
 - Render: `PAGE=promo_demo.html node render2.mjs frames 1080 1920 fv2 30` (60 s).
+
+## Versión final: original + voces reales (lambo-voz-real-*.mp4, 38 s)
+- `promo_v3.html`: el video original; la escena de conversación usa el audio real (cliente + Lambo) y en la revelación
+  de LAMBO suena su "Hola, soy Lambo." real. Lee `clips.js`.
+- `clips.py`: corta los clips reales de la conversación y mezcla con `music3.py` (música re-arreglada a 38 s, con ducking).
+- Render: `PAGE=promo_v3.html node render2.mjs frames 1080 1920 fv3 30`.
